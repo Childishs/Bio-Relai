@@ -1,4 +1,5 @@
 <?php 
+require_once('DBConnex.php');
 
 /*
 Utilisateur DAO : 
@@ -6,19 +7,20 @@ Utilisateur DAO :
     - OCCUPATION : Connexion
     - OCCUPATION : CRUD 
 */
-
+ 
 class UtilisateurDAO {
 
-    private PDO $db;
     private string $mail;
     private string $mdp;
+    private PDO $instance;
     private int $id;
 
-    public function __construct(int $id = null, string $mail, string $mdp) {
-        $this->db = Db::CONNECT();
+    public function __construct(int $id = null, string $mail, string $mdp) { 
         $this->id = $id;
         $this->mail = $mail;
         $this->mdp = $mdp;
+        $db = new DBConnex();
+        $this->instance = $db::getInstance();
     }
 
     /**
@@ -28,7 +30,7 @@ class UtilisateurDAO {
      * @return UtilisateurDTO|null 
      */
     public static function verifConnexion() : ?UtilisateurDTO {
-        $req = SELF::$db->prepare("SELECT * FROM Utilisateurs WHERE mail = ? AND mdp = ? ");
+        $req = SELF::$instance->prepare("SELECT * FROM Utilisateurs WHERE mail = ? AND mdp = ? ");
         $req->execute(array(SELF::$mail, SELF::$mdp));
 
         $req->setFetchMode(\PDO::FETCH_CLASS, "UtilisateurDTO");

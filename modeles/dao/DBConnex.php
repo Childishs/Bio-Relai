@@ -2,7 +2,7 @@
 
 class DBConnex extends PDO{
     
-    private static $instance;
+    protected static $instance;
     
     public static function getInstance(){
         if ( !self::$instance ){
