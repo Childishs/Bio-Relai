@@ -11,7 +11,7 @@ class DBConnex extends PDO{
         return self::$instance;
     }
     
-    private function __construct(){
+    public function __construct(){
         try {
             parent::__construct(Param::$hostBD ,Param::$logBD, Param::$mdp);
         } catch (Exception $e) {

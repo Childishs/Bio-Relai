@@ -26,11 +26,12 @@ else if(isset($_POST['submitConnex'])){
     if(!empty($_POST['mdp'])&& !empty($_POST['login'])){
         $login = htmlspecialchars($_POST['login']);
         $mdp=htmlspecialchars($_POST['mdp']);
-        $user = new UtilisateurDAO(null,$login,$mdp);
-        $user = $user::verifConnexion();
-        if($user->getId()){
-            $_SESSION['token']=$user->getToken();
-            $_SESSION['statut']=$user->getStatut();
+     // $user = new UtilisateurDAO($login,$mdp);
+        $un = UtilisateurDAO::verifConnexion($login, $mdp);
+        var_dump($un);
+        if($un->getId()){
+            $_SESSION['token']=$un->getToken();
+            $_SESSION['statut']=$un->getStatut();
             dispatcher::dispatch($_SESSION['statut']);
         }
         else{
