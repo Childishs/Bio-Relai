@@ -6,6 +6,7 @@
     </header>
 
     <section>
-        <?php echo $laListeProducteurs; ?>
+        <?php // echo $laListeProducteurs; 
+            echo "Bienvenu à vous visiteur !" ?>
     </section>
 </section>
