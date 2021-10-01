@@ -6,7 +6,11 @@ if(isset($_GET['demandeConnexion'])){
     $_SESSION['controleurN1']="connexion";
 }
 
-else if(!isset($_POST['identififcation'])){
+if(isset($_POST['submitConnex'])) {
+    // Création de la partie User -> Création user et vérification 
+    // Mise en place ici des sessions et infos 
+
+} else if(!isset($_POST['identififcation'])){
     $SESSSION['identification']['statut']="visiteurs";
     $SESSSION['controleurBioN1'] = $SESSION['identification']['statut'];
     $SESSSION['identification']['nom']=null;
