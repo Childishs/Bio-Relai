@@ -1,28 +1,24 @@
 <?php
 
-
-// Class BDD, on l'étendra sur nos répository pour qu'il accèdent à la connexion directement avec superrr
-
-class Db 
-{
-
-    // Singleton
-    private function __construct() {}
-
-    /**
-     * On construit la connexion avec une méthode de connexion et des variables interachangable pour la suite
-     *
-     * @return \PDO
-     */
-    public static function CONNECT() : \PDO
-    {
+class DBConnex extends PDO{
+    
+    private static $instance;
+    
+    public static function getInstance(){
+        if ( !self::$instance ){
+            self::$instance = new DBConnex();
+        }
+        return self::$instance;
+    }
+    
+    private function __construct(){
         try {
-            $db = new \PDO("mysql:host=".Param::$hostBD.";dbname=".Param::$nomBD.", ".Param::$logBD.", ".Param::$mdp."");
-            return $db;
-        } catch (\Exception $e) {
-            die($e->getMessage());
+            parent::__construct(Param::$hostBD ,Param::$logBD, Param::$mdp);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            die("Impossible de se connecter. " );
         }
     }
-
+    
 
 }
