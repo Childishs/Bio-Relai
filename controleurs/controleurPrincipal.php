@@ -19,6 +19,25 @@ if(!isset($_POST['identififcation'])){
     $SESSSION['identification']['login'] = null;
 }
 */
+
+/*vérification des données entrées
+*/
+else if(isset($_POST['submitConnex'])){
+    if(!empty($_POST['mdp'])&& !empty($_POST['login'])){
+        $login = htmlspecialchars($_POST['login']);
+        $mdp=htmlspecialchars($_POST['mdp']);
+        $user = new UtilisateurDAO(null,$login,$mdp);
+        $user = $user::verifConnexion();
+        if($user->getId()){
+            $_SESSION['token']=$user->getToken();
+            $_SESSION['statut']=$user->getStatut();
+            dispatcher::dispatch($_SESSION['statut']);
+        }
+        else{
+            $_SESSION['controleurN1']="visiteurs";
+        }
+    }
+}
 else{
     $_SESSION['controleurN1']="visiteurs";
 }

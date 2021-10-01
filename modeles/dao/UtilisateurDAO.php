@@ -13,10 +13,8 @@ class UtilisateurDAO {
     private string $mail;
     private string $mdp;
     private PDO $instance;
-    private int $id;
 
-    public function __construct(int $id = null, string $mail, string $mdp) { 
-        $this->id = $id;
+    public function __construct(string $mail, string $mdp) { 
         $this->mail = $mail;
         $this->mdp = $mdp;
         $db = new DBConnex();

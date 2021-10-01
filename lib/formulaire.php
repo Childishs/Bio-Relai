@@ -55,7 +55,7 @@ class Formulaire{
 		if (!empty($placeholder)){
 			$composant .= "placeholder = '" . $placeholder . "' ";
 		}
-		if ( $required = 1){
+		if ( $required == 1){
 			$composant .= "required ";
 		}
 		if (!empty($pattern)){
