@@ -46,7 +46,11 @@ class Formulaire{
 		return $composant;
 	}
 	
-	
+	public function creerRadio($unRadio, $nom){
+		$composant = "<input  type ='radio' name = '" .$unRadio. "'/>$nom";
+		return $composant;
+	}
+
 	public function creerInputTexte($unNom, $unId, $uneValue , $required , $placeholder , $pattern){
 		$composant = "<input type = 'text' name = '" . $unNom . "' id = '" . $unId . "' ";
 		if (!empty($uneValue)){
