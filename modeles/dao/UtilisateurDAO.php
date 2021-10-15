@@ -20,11 +20,11 @@ class UtilisateurDAO {
     public static function connexion(string $login, string $mdp) : UtilisateurDTO {
 
         $query =  DBConnex::getInstance()->prepare("SELECT * FROM UTILISATEURS WHERE mail = ?");
-        $query->execute(array($login, $mdp));
+        $query->execute(array($login));
         $query->setFetchMode(PDO::FETCH_CLASS, 'UtilisateurDTO');
         $utilisateur = $query->fetch();
 
-        if(!is_callable($utilisateur->getIdUtilisateur())) {
+        if(!$utilisateur->getId()) {
             $_SESSION['error'] = "Erreur d'identification";
             die();
 
@@ -45,30 +45,31 @@ class UtilisateurDAO {
      */
     public static function inscription(UtilisateurDTO $user) : void {
         // Création d'un utilisateur dans db 
-
+        DBConnex::getInstance()->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         // On commence par vérifier si l'utilisateur n'est pas déjà dans la bdd 
         $req = DBConnex::getInstance()->prepare("SELECT mail FROM UTILISATEURS where mail = ?");
         $req->execute(array($user->getMail()));
         $req->fetch();
         if($req->rowCount() != 0) {
             $_SESSION['error'] = "Problème de connexion";
-            dispatcher::dispatch($_SESSION['controleurN1'] = "inscription");
+            //dispatcher::dispatch($_SESSION['controleurN1'] = "inscription");
         } 
         // Sinon, on ajoute 
         // On commence par hasher le mdp pcq on est des bogoss de la sécu 
         $mdp = password_hash($user->getMdp(), PASSWORD_DEFAULT);
+        var_dump($mdp);
 
 
         // Création du token aléatoire 
-        $token = openssl_random_pseudo_bytes(25) + random_bytes(7) + openssl_random_pseudo_bytes(18);
+        $token = strval(openssl_random_pseudo_bytes(25));
         $token = hash('SHA256', $token);
-
+        var_dump($user);
         // Envoie db 
         try {
             // A terminer
-            $req = DBConnex::getInstance()->PREPARE("INSERT INTO UTILISATEURS values ?,?,?,?,?,?");
+            $req = DBConnex::getInstance()->prepare("INSERT INTO UTILISATEURS VALUES (?,?,?,?,?,?)");
             $req->execute(array($user->getMail(), $mdp, $user->getStatut(), $user->getNomUtilisateur(), $user->getPrenomUtilisateur(), $token));
-            $_SESSION['user'] = ['token' => $token, 'nom' => $user->getNomUtilisateur(), 'prenom' => $user->getPrenomUtilisateur(), 'statut' => $user->getStatut()];
+            $_SESSION['error'] = ['token' => $token, 'nom' => $user->getNomUtilisateur(), 'prenom' => $user->getPrenomUtilisateur(), 'statut' => $user->getStatut()];
 
         } catch(Exception $e) {
             die($e->getMessage());

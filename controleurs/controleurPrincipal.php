@@ -5,20 +5,7 @@
 if(isset($_GET['demandeConnexion'])){
     $_SESSION['controleurN1']="connexion";
 }
-elseif(isset($_GET['demandeInscription']))
-{
-    $_SESSION['controleurN1']="inscription";
-}
 
-elseif(isset($_GET['demandeDeconnexion']))
-{
-    $_SESSION['controleurN1']="visiteurs";
-    $_SESSION['statut']= "visiteurs";
-    $_SESSION['token'] = [];
-}
-elseif(!isset($_SESSION['statut'])){
-    $_SESSION['controleurN1']="visiteurs";
-}
 /*
 
 
@@ -34,7 +21,7 @@ if(!isset($_POST['identififcation'])){
 /*vérification des données entrées
 */
 else if(isset($_POST['submitConnex'])){
-    if(!empty($_POST['mdp'])&& !empty($_POST['login'])){
+    if(!empty($_POST['mdp']) && !empty($_POST['login'])){
         $login = htmlspecialchars($_POST['login']);
         $mdp=htmlspecialchars($_POST['mdp']);
         // connexion 
@@ -50,15 +37,13 @@ else if(isset($_POST['submitConnex'])){
     }
 }
 
-
 else if(isset($_POST['submitInscription'])){
     //vérification des informations remplies correctement et
-    if(!empty($_POST['mdp']) && !empty($_POST['login']) && !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['statut'])){
-        $login = htmlspecialchars($_POST['login']);
+    if(!empty($_POST['mdp']) && !empty($_POST['email']) && !empty($_POST['nom']) && !empty($_POST['prenom'])){
+        $login = htmlspecialchars($_POST['email']);
         $mdp = htmlspecialchars($_POST['mdp']);
         $nom = htmlspecialchars($_POST['nom']);
         $prenom = htmlspecialchars($_POST['prenom']);
-        $statut = htmlspecialchars($_POST['statut']);
 
         //ajout des informations le UtilisateurDTO créé
         $Utilisateur = new UtilisateurDTO();
@@ -66,15 +51,27 @@ else if(isset($_POST['submitInscription'])){
         $Utilisateur->setMdp($mdp);
         $Utilisateur->setNomUtilisateur($nom);
         $Utilisateur->setPrenomUtilisateur($prenom);
-        $Utilisateur->setStatut($statut);
+        $Utilisateur->setStatut('ADHERENT');
+
+        var_dump($nom);
 
         UtilisateurDAO::inscription($Utilisateur);
-        dispatcher::dispatch($statut);
+        dispatcher::dispatch($_SESSION['user']['statut']);
     }
-    else{
-        $_SESSION['controleurN1']="visiteurs";
-    }
+    
+} elseif(isset($_GET['demandeInscription']))
+{
+    $_SESSION['controleurN1']="inscription";
+}
 
+elseif(isset($_GET['demandeDeconnexion']))
+{
+    $_SESSION['controleurN1']="visiteurs";
+    $_SESSION['statut']= "visiteurs";
+    $_SESSION['token'] = [];
+}
+elseif(!isset($_SESSION['statut'])){
+    $_SESSION['controleurN1']="visiteurs";
 }
 else{
     $_SESSION['controleurN1']="visiteurs";

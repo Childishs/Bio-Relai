@@ -55,7 +55,7 @@ class UtilisateurDTO {
     }
 
     public function setNomUtilisateur(string $nom) {
-        return $this->nom;
+        $this->nomUtilisateur = $nom;
     }
 
     public function getPrenomUtilisateur() {

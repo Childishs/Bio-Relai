@@ -31,16 +31,6 @@
     $formulaireInscription->ajouterComposantLigne($formulaireInscription->creerInputMdp('mdp','mdp',1,"Entrez votre mot de passe",''));
     $formulaireInscription->ajouterComposantTab();
 
-
-    $formulaireInscription->ajouterComposantLigne($formulaireInscription->creerLabel('Statut :'));
-    $formulaireInscription->ajouterComposantTab();
-
-    $formulaireInscription->ajouterComposantLigne($formulaireInscription->creerRadio('statut','Adherent')); 
-    $formulaireInscription->ajouterComposantTab();
-
-    $formulaireInscription->ajouterComposantLigne($formulaireInscription->creerRadio('statut','Producteur'));
-    $formulaireInscription->ajouterComposantTab();
-
     $formulaireInscription->ajouterComposantLigne($formulaireInscription->creerInputSubmit('submitInscription','submitInscription',"S inscrire"));
     $formulaireInscription->ajouterComposantTab();
 
