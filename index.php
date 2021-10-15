@@ -14,7 +14,21 @@ session_start();
     </head>
     <body>
        <?php 
-        
+            if(isset($_SESSION['statut'])) {
+                echo $_SESSION['statut'];
+            }
+
+            if(isset($_SESSION['error'])) {
+                echo $_SESSION['error'];
+            }
+
+                echo password_hash("bonjour", PASSWORD_DEFAULT) .'<br/>';
+                echo password_hash("bonjour", PASSWORD_DEFAULT) .'<br/>';
+                echo password_hash("bonjour", PASSWORD_DEFAULT) .'<br/>';
+                echo password_hash("bonjour", PASSWORD_DEFAULT) .'<br/>';
+                echo password_hash("bonjour", PASSWORD_DEFAULT) .'<br/>';
+
+
             include_once('controleurs/controleurPrincipal.php');
        ?>
     <script src="scripts/scripts.js"></script>
