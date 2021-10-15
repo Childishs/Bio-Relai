@@ -1,7 +1,7 @@
 <section id="'conteneuVisiteurs">
     <header>
         <nav>
-            <?php $menuConnexion->afficheMenu(); ?>
+            <?php $menuConnexion->afficherMenu(); ?>
         </nav>
     </header>
 
