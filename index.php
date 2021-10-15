@@ -14,6 +14,7 @@ session_start();
     </head>
     <body>
        <?php 
+        
             include_once('controleurs/controleurPrincipal.php');
        ?>
     <script src="scripts/scripts.js"></script>

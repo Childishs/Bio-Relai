@@ -1,5 +1,4 @@
 <?php 
-require_once('DBConnex.php');
 
 /*
 Utilisateur DAO : 
@@ -11,20 +10,21 @@ Utilisateur DAO :
 class UtilisateurDAO {
 
 
-    /**
+
+     /**
      * Permet de vérifier que l'utilisateur a un compte et qu'il peut donc se connecter
      * V1 -> Aucune sécurité de connexion (verification dans le MDP -> Envoie brute)
      * 
+     * @param string $email
+     * @param string $mdp
      * @return UtilisateurDTO|null 
      */
-    public static function verifConnexion(string $email, string $mdp) : ?UtilisateurDTO {
-        // Changement requête 
-        $req = DBConnex::getInstance()->prepare("SELECT * FROM UTILISATEURS WHERE mail = ? AND mdp = ? ");
-        $req->execute(array($email, $mdp));
-        $req->setFetchMode(\PDO::FETCH_CLASS, get_class(new UtilisateurDTO));
-        $un = $req->fetch(\PDO::FETCH_CLASS);
-        var_dump($un);
-        return $un;
+    public static function connexion(string $login, string $mdp) : UtilisateurDTO {
+        $query = DBConnex::getInstance()->prepare("SELECT * FROM UTILISATEURS WHERE mail = ? AND mdp = ?");
+        $query->execute(array($login, $mdp));
+        $query->setFetchMode(PDO::FETCH_CLASS, 'UtilisateurDTO');
+        $unique = $query->fetch();
+        return $unique;
     }
 
     /**
@@ -45,12 +45,12 @@ class UtilisateurDAO {
         } 
         // Sinon, on ajoute 
         // On commence par hasher le mdp pcq on est des bogoss de la sécu 
-        $mdp = password_hash($user->mdp, PASSWORD_DEFAULT);
+        $mdp = password_hash($user->getMdp(), PASSWORD_DEFAULT);
         // Envoie db 
         try {
             // A terminer
             $req = DBConnex::getInstance()->PREPARE("INSERT INTO UTILISATEURS values ?,?,?,?,?,?,?");
-            $req->execute(array($user->getNomUtilisateur(), $user->get ));
+            $req->execute(array($user->getNomUtilisateur(), $mdp ));
 
             return true;
 

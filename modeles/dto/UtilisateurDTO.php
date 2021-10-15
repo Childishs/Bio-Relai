@@ -8,13 +8,13 @@ UtilisateurDTO :
 
 class UtilisateurDTO {
 
-    private int $idUtilisateur;
-    private string $mail;
-    private string $mdp;
-    private string $statut;
-    private string $nomUtilisateur;
-    private string $prenomutilisateur;
-    private string $token;
+    private  $idUtilisateur;
+    private  $mail;
+    private  $mdp;
+    private  $statut;
+    private  $nomUtilisateur;
+    private  $prenomUtilisateur;
+    private  $token;
 
     // Accesseurs 
 
@@ -59,11 +59,11 @@ class UtilisateurDTO {
     }
 
     public function getPrenomUtilisateur() {
-        return $this->prenomutilisateur;
+        return $this->prenomUtilisateur;
     }
 
     public function setPrenomUtilisateur(string $prenom) {
-        $this->prenomutilisateur = $prenom;
+        $this->prenomUtilisateur = $prenom;
     }
 
     public function getToken() {

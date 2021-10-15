@@ -26,8 +26,8 @@ else if(isset($_POST['submitConnex'])){
     if(!empty($_POST['mdp'])&& !empty($_POST['login'])){
         $login = htmlspecialchars($_POST['login']);
         $mdp=htmlspecialchars($_POST['mdp']);
-     // $user = new UtilisateurDAO($login,$mdp);
-        $un = UtilisateurDAO::verifConnexion($login, $mdp);
+        // connexion 
+        $un = UtilisateurDAO::connexion($login, $mdp);
         var_dump($un);
         if($un->getId()){
             $_SESSION['token']=$un->getToken();
