@@ -40,7 +40,7 @@ else if(isset($_POST['submitConnex'])){
 }
 
 else if(isset($_POST['inscription'])){
-
+    //vérification des informations remplies correctement et
     if(!empty($_POST['mdp']) && !empty(_POST['login']) && !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['statut'])){
         $login = htmlspecialchars($_POST['login']);
         $mdp = htmlspecialchars($_POST['mdp']);
@@ -48,6 +48,7 @@ else if(isset($_POST['inscription'])){
         $prenom = htmlspecialchars($_POST['prenom']);
         $statut = htmlspecialchars($_POST['statut']);
 
+        //ajout des informations le UtilisateurDTO créé
         $Utilisateur = new UtilisateurDTO();
         $Utilisateur->setmail($login);
         $Utilisateur->setMdp($mdp);
