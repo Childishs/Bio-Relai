@@ -9,8 +9,6 @@ Utilisateur DAO :
  
 class UtilisateurDAO {
 
-
-
      /**
      * Permet de vérifier que l'utilisateur a un compte et qu'il peut donc se connecter
      * V1 -> Aucune sécurité de connexion (verification dans le MDP -> Envoie brute)
@@ -19,8 +17,8 @@ class UtilisateurDAO {
      * @param string $mdp
      * @return UtilisateurDTO|null 
      */
-    public static function connexion(string $login, string $mdp) : UtilisateurDTO {
-        $query = DBConnex::getInstance()->prepare("SELECT * FROM UTILISATEURS WHERE mail = ? AND mdp = ?");
+    public static function connexion(string $login, string $mdp) {
+        $query =  DBConnex::getInstance()->prepare("SELECT * FROM UTILISATEURS WHERE mail = ? AND mdp = ?");
         $query->execute(array($login, $mdp));
         $query->setFetchMode(PDO::FETCH_CLASS, 'UtilisateurDTO');
         $unique = $query->fetch();

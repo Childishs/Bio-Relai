@@ -27,11 +27,12 @@ else if(isset($_POST['submitConnex'])){
         $login = htmlspecialchars($_POST['login']);
         $mdp=htmlspecialchars($_POST['mdp']);
         // connexion 
-        $un = UtilisateurDAO::connexion($login, $mdp);
-        var_dump($un);
-        if($un->getId()){
-            $_SESSION['token']=$un->getToken();
-            $_SESSION['statut']=$un->getStatut();
+        $Utilisateur = UtilisateurDAO::connexion($login, $mdp);
+        var_dump($Utilisateur);
+        
+        if($Utilisateur->getId()){
+            $_SESSION['token']=$Utilisateur->getToken();
+            $_SESSION['statut']=$Utilisateur->getStatut();
             dispatcher::dispatch($_SESSION['statut']);
         }
         else{
