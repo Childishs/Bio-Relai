@@ -19,11 +19,11 @@ class UtilisateurDTO {
     // Accesseurs 
 
     public function getId() {
-        return $this->id;
+        return $this->idUtilisateur;
     }
 
     public function setId(int $id) {
-        $this->id = $id;
+        $this->idUtilisateur = $id;
     }
 
     public function getMail() {
