@@ -39,6 +39,7 @@ else if(isset($_POST['submitConnex'])){
     }
 }
 
+
 else if(isset($_POST['inscription'])){
     //vérification des informations remplies correctement et
     if(!empty($_POST['mdp']) && !empty(_POST['login']) && !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['statut'])){
@@ -67,5 +68,22 @@ else if(isset($_POST['inscription'])){
 else{
     $_SESSION['controleurN1']="visiteurs";
 }
+
+
+elseif(isset($_GET['demandeInscription']))
+{
+    $_SESSION['controleurN1']="inscription";
+}
+
+elseif(isset($_GET['demandeDeconnexion']))
+{
+    $_SESSION['controleurN1']="visiteurs";
+    $_SESSION['statut']= "visiteurs";
+    $_SESSION['token'] = [];
+}
+elseif(!isset($_SESSION['statut'])){
+    $_SESSION['controleurN1']="visiteurs";
+}
+
 
 include_once dispatcher::dispatch($_SESSION['controleurN1']);
