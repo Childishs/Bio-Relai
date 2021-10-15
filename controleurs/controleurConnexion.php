@@ -24,14 +24,14 @@ $formulaireConnexion->ajouterComposantTab();
 $formulaireConnexion->ajouterComposantLigne($formulaireConnexion->creerInputSubmit('submitConnex','submitConnex','Se Connecter'));
 $formulaireConnexion->ajouterComposantTab();
 
-
+$formulaireConnexion->creerFormulaire();
 
 /*
  * $formulaireConnexion->ajouterComposantLigne($formulaireConnexion->creerMessage($messageErreurConnexion));
 $formulaireConnexion->ajouterComposantTab();
  */
 
-$formulaireConnexion->creerFormulaire();
+
 
 $menuInscription = new Menu('demandeInscription');
 $menuInscription->ajouterComposant($menuInscription->creerItemLien('Créer un Compte','demandeInscription'));

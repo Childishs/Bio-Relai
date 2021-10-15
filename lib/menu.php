@@ -9,7 +9,7 @@ class Menu{
 		$this->style = $unStyle;
 	}
 
-	public function afficheMenu(){
+	public function afficherMenu(){
 	    echo $this->menu;
 	}
 	

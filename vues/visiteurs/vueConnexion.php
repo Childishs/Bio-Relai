@@ -1,5 +1,15 @@
 <section id="'conteneuVisiteurs">
 
     <section>
-        <?php $formulaireConnexion->afficherFormulaire(); ?>
+        <?php 
+        
+            $formulaireConnexion->afficherFormulaire();       
+            $menuInscription->afficherMenu();
+            $menuFermerConnexion->afficherMenu();
+        
+        
+        
+        
+        ?>
+        
     </section>
