@@ -27,9 +27,7 @@ else if(isset($_POST['submitConnex'])){
         $login = htmlspecialchars($_POST['login']);
         $mdp=htmlspecialchars($_POST['mdp']);
         // connexion 
-        $Utilisateur = UtilisateurDAO::connexion($login, $mdp);
-        var_dump($Utilisateur);
-        
+        $Utilisateur = UtilisateurDAO::connexion($login, $mdp);        
         if($Utilisateur->getId()){
             $_SESSION['token']=$Utilisateur->getToken();
             $_SESSION['statut']=$Utilisateur->getStatut();
