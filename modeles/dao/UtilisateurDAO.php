@@ -43,7 +43,7 @@ class UtilisateurDAO {
      * @param UtisateurDTO
      * @return bool -> true si ajout / false si erreur
      */
-    public function inscription(UtilisateurDTO $user) : void {
+    public static function inscription(UtilisateurDTO $user) : void {
         // Création d'un utilisateur dans db 
 
         // On commence par vérifier si l'utilisateur n'est pas déjà dans la bdd 

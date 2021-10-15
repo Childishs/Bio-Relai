@@ -31,7 +31,7 @@
     $formulaireInscription->ajouterComposantLigne($formulaireInscription->creerInputMdp('mdp','mdp',1,"Entrez votre mot de passe",''));
     $formulaireInscription->ajouterComposantTab();
 
-    $formulaireInscription->ajouterComposantLigne($formulaireInscription->creerInputSubmit('submitConnex','submitConnex','Se Connecter'));
+    $formulaireInscription->ajouterComposantLigne($formulaireInscription->creerInputSubmit('submitInscription','submitInscription',"S'inscrire"));
     $formulaireInscription->ajouterComposantTab();
 
 
