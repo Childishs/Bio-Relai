@@ -1,18 +1,44 @@
-<?php 
+<?php
 
+/*
+ * AdherentDAO :
+ * - récupérer un adhérent
+ * - récpérer tous les adhérents
+ * - supprimer compte
+ * - modifier adhérent
+ */
 
  
 class AdherentDAO {
+    /* @param string token
+     *
+     * return AdherentDTO
+     */
+    public static function getAdherent() : AdherentsDTO{
 
-    
-    public static function ajoutAdherent( ) {
-        $req = "INSERT INTO");
- 
-/*******************************************A FAIRE + FAIRE LE AdherentDTO.php dans le fichier dto *********************************/
-      
-        return $un;
     }
 
+    /*
+     * return un array d'utilisateursDTO
+     */
+    public static function getAllAdherent() : Array{
+
+    }
+
+    /* @param AdherentsDTO or UtilisateurDTO
+     *
+     * return bool true si bien passé
+     */
+    public static function updateAdherent() : bool{
+
+    }
+    /* @param string token
+     *
+     * return bool
+     */
+    public static function deleteAdherent() : bool{
+
+    }
 
 
 
