@@ -43,7 +43,7 @@ else if(isset($_POST['submitInscription'])){
         $Utilisateur->setMdp($mdp);
         $Utilisateur->setNomUtilisateur($nom);
         $Utilisateur->setPrenomUtilisateur($prenom);
-        $Utilisateur->setStatut('adherent');
+        $Utilisateur->setStatut('adherents');
 
         //a voir
         UtilisateurDAO::inscription($Utilisateur);
