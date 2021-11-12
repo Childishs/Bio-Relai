@@ -30,7 +30,6 @@ class UtilisateurDAO {
 
         } else {
             // vérification du password
-            echo $utilisateur->getMdp();
 
             if (password_verify($mdp, $utilisateur->getMdp())) {
                 $_SESSION['user'] = ['token' => $utilisateur->getToken(), 'nom' => $utilisateur->getNomUtilisateur(), 'prenom' => $utilisateur->getPrenomUtilisateur(), 'statut' => $utilisateur->getStatut()];

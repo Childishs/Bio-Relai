@@ -6,17 +6,9 @@ if(isset($_GET['demandeConnexion'])){
     $_SESSION['controleurN1']="connexion";
 }
 
-/*
-
-
-if(!isset($_POST['identififcation'])){
-    $SESSSION['identification']['statut']="visiteurs";
-    $SESSSION['controleurBioN1'] = $SESSION['identification']['statut'];
-    $SESSSION['identification']['nom']=null;
-    $SESSSION['identification']['prenom']=null;
-    $SESSSION['identification']['login'] = null;
+else if(isset($_SESSION['user'])) {
+    $_SESSION['controleurN1'] = $_SESSION['user']['statut'];
 }
-*/
 
 /*vérification des données entrées
 */
@@ -51,12 +43,12 @@ else if(isset($_POST['submitInscription'])){
         $Utilisateur->setMdp($mdp);
         $Utilisateur->setNomUtilisateur($nom);
         $Utilisateur->setPrenomUtilisateur($prenom);
-        $Utilisateur->setStatut('adherents');
+        $Utilisateur->setStatut('adherent');
 
         //a voir
         UtilisateurDAO::inscription($Utilisateur);
 
-        $_SESSION['controleurN1'] = $_SESSION['statut'];
+        $_SESSION['controleurN1'] = $_SESSION['user']['statut'];
     }
 
 } elseif(isset($_GET['demandeInscription']))
