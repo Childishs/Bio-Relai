@@ -55,6 +55,7 @@ else if(isset($_POST['submitInscription'])){
 
         //a voir
         UtilisateurDAO::inscription($Utilisateur);
+
         $_SESSION['controleurN1'] = $_SESSION['statut'];
     }
 

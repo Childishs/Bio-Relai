@@ -1,5 +1,11 @@
 <section id="'conteneuVisiteurs">
 
     <section>
-        <?php $formulaireInscription->afficherFormulaire(); ?>
+        <?php 
+        
+            $formulaireInscription->afficherFormulaire(); 
+            $formulaireInscriptionRetour->afficherFormulaire();
+        
+        
+        ?>
     </section>
