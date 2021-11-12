@@ -56,7 +56,7 @@ else if(isset($_POST['submitInscription'])){
         var_dump($nom);
 
         UtilisateurDAO::inscription($Utilisateur);
-        dispatcher::dispatch($_SESSION['user']['statut']);
+        //dispatcher::dispatch($_SESSION['user']['statut']);
     }
     
 } elseif(isset($_GET['demandeInscription']))

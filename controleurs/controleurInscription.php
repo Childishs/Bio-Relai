@@ -5,8 +5,6 @@
     $formulaireInscription->ajouterComposantLigne($formulaireInscription->creerTitre("Je crée mon compte"));
     $formulaireInscription->ajouterComposantTab();
 
-
-
     $formulaireInscription->ajouterComposantLigne($formulaireInscription->creerLabel("Prénom"));
     $formulaireInscription->ajouterComposantTab();
 
@@ -34,11 +32,19 @@
     $formulaireInscription->ajouterComposantLigne($formulaireInscription->creerInputSubmit('submitInscription','submitInscription',"S inscrire"));
     $formulaireInscription->ajouterComposantTab();
 
-    
-
+   
     $formulaireInscription->creerFormulaire();
 
-   
+
+
+    $formulaireInscriptionRetour = new Formulaire('post','index.php','fConnexionRetour','fConnexionRetour');
+    $formulaireInscriptionRetour->ajouterComposantLigne($formulaireInscriptionRetour->creerInputBoutonRetour("Retour"));
+    $formulaireInscriptionRetour->ajouterComposantTab();
+    $formulaireInscriptionRetour->creerFormulaire();
+
+
+
+
     include_once 'vues/visiteurs/vueInscription.php';
 
 

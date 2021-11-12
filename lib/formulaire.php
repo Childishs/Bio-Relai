@@ -105,6 +105,14 @@ class Formulaire{
 		return $composant;
 	}
 
+	public function creerInputBoutonRetour($uneValue){
+		return "<a href='vues/visiteurs/vueConnexion.php' target='_blank'> <input type='button' value='Retour'> </a>";
+
+
+		$composant = "<input type = 'button' value= '" . $uneValue . "' onclick= '" . history.go(-1) . "'>";
+		return $composant;
+	}
+
 	public function creerInputImage($unNom, $unId, $uneSource){
 		$composant = "<input type = 'image' name = '" . $unNom . "' id = '" . $unId . "' ";
 		$composant .= "src = '" . $uneSource . "'/> ";
