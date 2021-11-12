@@ -14,25 +14,7 @@ session_start();
     </head>
     <body>
        <?php 
-/*
-            if(isset($_POST)) {
-                var_dump($_POST);
-            }
-*/
-            if(isset($_SESSION['statut'])) {
-                echo $_SESSION['statut'];
-            }
 
-            if(isset($_SESSION['error'])) {
-                var_dump($_SESSION['error']);
-            }
-            /*
-                echo password_hash("bonjour", PASSWORD_DEFAULT) .'<br/>';
-                echo password_hash("bonjour", PASSWORD_DEFAULT) .'<br/>';
-                echo password_hash("bonjour", PASSWORD_DEFAULT) .'<br/>';
-                echo password_hash("bonjour", PASSWORD_DEFAULT) .'<br/>';
-                echo password_hash("bonjour", PASSWORD_DEFAULT) .'<br/>';
-            */
 
             include_once('controleurs/controleurPrincipal.php');
        ?>

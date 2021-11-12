@@ -24,12 +24,12 @@ else if(isset($_POST['submitConnex'])){
     if(!empty($_POST['mdp']) && !empty($_POST['login'])){
         $login = htmlspecialchars($_POST['login']);
         $mdp=htmlspecialchars($_POST['mdp']);
-        // connexion 
-        $Utilisateur = UtilisateurDAO::connexion($login, $mdp);        
-        if($Utilisateur->getId()){
+        // connexion
+        $Utilisateur = UtilisateurDAO::connexion($login, $mdp);
+        if($Utilisateur->getMail()){
             $_SESSION['token']=$Utilisateur->getToken();
             $_SESSION['statut']=$Utilisateur->getStatut();
-            dispatcher::dispatch($_SESSION['statut']);
+            $_SESSION['controleurN1'] = $_SESSION['statut'];
         }
         else{
             $_SESSION['controleurN1']="visiteurs";
@@ -51,14 +51,14 @@ else if(isset($_POST['submitInscription'])){
         $Utilisateur->setMdp($mdp);
         $Utilisateur->setNomUtilisateur($nom);
         $Utilisateur->setPrenomUtilisateur($prenom);
-        $Utilisateur->setStatut('ADHERENT');
+        $Utilisateur->setStatut('adherents');
 
-        var_dump($nom);
-
+        //a voir
         UtilisateurDAO::inscription($Utilisateur);
-        //dispatcher::dispatch($_SESSION['user']['statut']);
+
+        $_SESSION['controleurN1'] = $_SESSION['statut'];
     }
-    
+
 } elseif(isset($_GET['demandeInscription']))
 {
     $_SESSION['controleurN1']="inscription";
@@ -76,7 +76,6 @@ elseif(!isset($_SESSION['statut'])){
 else{
     $_SESSION['controleurN1']="visiteurs";
 }
-
 
 
 

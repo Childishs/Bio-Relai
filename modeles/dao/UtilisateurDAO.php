@@ -17,22 +17,30 @@ class UtilisateurDAO {
      * @param string $mdp
      * @return UtilisateurDTO|null 
      */
-    public static function connexion(string $login, string $mdp) : UtilisateurDTO {
+    public static function connexion(string $login, string $mdp)
+    {
 
-        $query =  DBConnex::getInstance()->prepare("SELECT * FROM UTILISATEURS WHERE mail = ?");
+        $query = DBConnex::getInstance()->prepare("SELECT * FROM UTILISATEURS WHERE mail = ?");
         $query->execute(array($login));
         $query->setFetchMode(PDO::FETCH_CLASS, 'UtilisateurDTO');
         $utilisateur = $query->fetch();
-
-        if(!$utilisateur->getId()) {
+        if (!$utilisateur->getMail()) {
             $_SESSION['error'] = "Erreur d'identification";
             die();
 
         } else {
-            // vérification du password 
-            if(password_verify($mdp, $utilisateur->getPassword())) {
+            // vérification du password
+            echo $utilisateur->getMdp();
+
+            if (password_verify($mdp, $utilisateur->getMdp())) {
                 $_SESSION['user'] = ['token' => $utilisateur->getToken(), 'nom' => $utilisateur->getNomUtilisateur(), 'prenom' => $utilisateur->getPrenomUtilisateur(), 'statut' => $utilisateur->getStatut()];
+                $_SESSION['AGENT'] = $_SERVER['HTTP_USER_AGENT'];
+                $_SESSION['TOKEN'] = $utilisateur->getToken();
+
                 return $utilisateur;
+            }
+            else{
+                $_SESSION['error'] = "Erreur d'identification";
             }
         }
     }
@@ -40,37 +48,35 @@ class UtilisateurDAO {
     /**
      * Fonction permettant de s'inscrire -> Ajout en BDD d'un utilisateur 
      * 
-     * @param UtisateurDTO
+     * @param UtilisateurDTO
      * @return bool -> true si ajout / false si erreur
      */
     public static function inscription(UtilisateurDTO $user) : void {
         // Création d'un utilisateur dans db 
-        DBConnex::getInstance()->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // On commence par vérifier si l'utilisateur n'est pas déjà dans la bdd 
+        // On commence par vérifier si l'utilisateur n'est pas déjà dans la bdd
         $req = DBConnex::getInstance()->prepare("SELECT mail FROM UTILISATEURS where mail = ?");
         $req->execute(array($user->getMail()));
         $req->fetch();
         if($req->rowCount() != 0) {
-            $_SESSION['error'] = "Problème de connexion";
-            //dispatcher::dispatch($_SESSION['controleurN1'] = "inscription");
-        } 
+            $_SESSION['error'] = "Problème d'inscription!";
+        }
         // Sinon, on ajoute 
         // On commence par hasher le mdp pcq on est des bogoss de la sécu 
         $mdp = password_hash($user->getMdp(), PASSWORD_DEFAULT);
-        var_dump($mdp);
-
 
         // Création du token aléatoire 
         $token = strval(openssl_random_pseudo_bytes(25));
         $token = hash('SHA256', $token);
-        var_dump($user);
+
         // Envoie db 
         try {
             // A terminer
             $req = DBConnex::getInstance()->prepare("INSERT INTO UTILISATEURS (mail,mdp,statut,nomUtilisateur,prenomUtilisateur,token) VALUES (?,?,?,?,?,?)");
             $req->execute(array($user->getMail(), $mdp, $user->getStatut(), $user->getNomUtilisateur(), $user->getPrenomUtilisateur(), $token));
-            $_SESSION['error'] = ['token' => $token, 'nom' => $user->getNomUtilisateur(), 'prenom' => $user->getPrenomUtilisateur(), 'statut' => $user->getStatut()];
-            
+
+            $_SESSION['user'] = ['token' => $token, 'nom' => $user->getNomUtilisateur(), 'prenom' => $user->getPrenomUtilisateur(), 'statut' => $user->getStatut()];
+
+
         } catch(Exception $e) {
             die($e->getMessage());
         }
