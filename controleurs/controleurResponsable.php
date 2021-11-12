@@ -1,10 +1,10 @@
 <?php 
 
 if($_SESSION['user']['statut'] === "responsable") {
-    $menuResponsable = new Menu('Responsable');
+    $menuResponsable = new Menu('btnConnexion');
     // $menuResponsable->ajouterComposant($menuConnexion->creerItemLien('Connexion','connexion'));
     $menuResponsable->ajouterComposant($menuResponsable->creerItemLien("Home","Responsable"));
-    $menuResponsable->ajouterComposant($menuResponsable->creerItemLien("Compte","Compte"));
+    $menuResponsable->ajouterComposant($menuResponsable->creerItemLien("Compte","ResponsableCompte"));
 
 
 
