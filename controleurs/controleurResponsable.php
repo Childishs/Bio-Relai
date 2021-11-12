@@ -32,10 +32,25 @@ if($_SESSION['user']['statut'] === "responsable") {
     $menuResponsable = new Menu('btnConnexion');
     // $menuResponsable->ajouterComposant($menuConnexion->creerItemLien('Connexion','connexion'));
     $menuResponsable->ajouterComposant($menuResponsable->creerItemLien("Home","Responsable"));
-    $menuResponsable->ajouterComposant($menuResponsable->creerItemLien("Compte","ResponsableCompte"));
+    $menuResponsable->ajouterComposant($menuResponsable->creerItemLien("Producteurs","ResponsableProducteurs"));
 
     // $menuResponsable = $menuResponsable->creerMenu('0','demandeConnexion');
     $menuResponsable->creerMenu('0','Responsable');
+
+
+    // Menu - Accès interne
+
+    $formulaireRouting = new Menu("InsideResp");
+
+     // $menuResponsable->ajouterComposant($menuConnexion->creerItemLien('Connexion','connexion'));
+     $formulaireRouting->ajouterComposant($formulaireRouting->creerItemLien("Producteurs","ResponsableProducteurs"));
+     $formulaireRouting->ajouterComposant($formulaireRouting->creerItemLien("Compte","ResponsableCompte"));
+ 
+     // $menuResponsable = $menuResponsable->creerMenu('0','demandeConnexion');
+     $formulaireRouting->creerMenu('0','Responsable');
+ 
+
+
 
     // mise en place du form
     $formulaireResponsable = new Formulaire('post','index.php','RespUpdate','RespUpdate');
@@ -78,6 +93,9 @@ if($_SESSION['user']['statut'] === "responsable") {
 
    
     $formulaireResponsable->creerFormulaire();
+
+
+
 
     require_once('vues/responsable/vueResponsable.php');
 }
