@@ -1,3 +1,5 @@
+
+
 <section id="contenueResponsable">
     <header>
         <nav>
@@ -20,6 +22,9 @@
             echo "Ajouter de nouvelles catégories <br/>";
             echo "Inspecter les factures (clients et producteurs) <br/>";
             var_dump($_SESSION);
+
+
+            $formulaireResponsable->afficherFormulaire();
             ?>
     </section>
 </section>

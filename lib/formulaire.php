@@ -70,12 +70,12 @@ class Formulaire{
 	}
 	
 	
-	public function creerInputMdp($unNom, $unId,  $required , $placeholder , $pattern){
+	public function creerInputMdp($unNom, $unId,  $required = NULL, $placeholder , $pattern){
 		$composant = "<input type = 'password' name = '" . $unNom . "' id = '" . $unId . "' ";
 		if (!empty($placeholder)){
 			$composant .= "placeholder = '" . $placeholder . "' ";
 		}
-		if ( $required = 1){
+		if ( $required === 1){
 			$composant .= "required ";
 		}
 		if (!empty($pattern)){

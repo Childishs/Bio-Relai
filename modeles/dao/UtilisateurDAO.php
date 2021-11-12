@@ -32,7 +32,7 @@ class UtilisateurDAO {
             // vérification du password
 
             if (password_verify($mdp, $utilisateur->getMdp())) {
-                $_SESSION['user'] = ['token' => $utilisateur->getToken(), 'nom' => $utilisateur->getNomUtilisateur(), 'prenom' => $utilisateur->getPrenomUtilisateur(), 'statut' => $utilisateur->getStatut()];
+                $_SESSION['user'] = ['token' => $utilisateur->getToken(), 'nom' => $utilisateur->getNomUtilisateur(), 'prenom' => $utilisateur->getPrenomUtilisateur(), 'statut' => $utilisateur->getStatut(), 'email' => $utilisateur->getMail()];
                 $_SESSION['AGENT'] = $_SERVER['HTTP_USER_AGENT'];
                 $_SESSION['TOKEN'] = $utilisateur->getToken();
 
@@ -95,6 +95,46 @@ class UtilisateurDAO {
     }
 
 
+    /**
+     * Fonction permettant de mettre à jour dans la base de données les données d'un utilisateur
+     * 
+     * @param UtilisateurDTO $user - Utilisateur près à l'envoie
+     * @return bool - True|False selon output 
+     */
+    public static function update(UtilisateurDTO $user) : bool {
+        try {
+            // On Hash le mdp seulement si l'utilisateur le change, on va pas hasher du déjà hashé 
+            $mdp = $user->getMdp();
+            if(strlen($mdp) < 30) {
+                $mdp = password_hash($mdp, PASSWORD_DEFAULT);
+            } 
+
+            $req = DBConnex::getInstance()->prepare('UPDATE UTILISATEURS SET nomUtilisateur = ?, prenomUtilisateur = ?, mail = ?, mdp = ? WHERE token = ?');
+            $req->execute(array($user->getNomUtilisateur(), $user->getPrenomUtilisateur(), $user->getMail(), $mdp, $user->getToken()));
+            return true;
+
+        } catch(Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    /**
+     * Permet de récupérer un utilisateur avec son token
+     * 
+     * @param string $token - Token d'identification
+     * @return UtilisateurDTO|null - S'il trouve l'user ou non
+     */
+    public static function getOne(string $token) : ?UtilisateurDTO {
+        try {
+            $req = DBConnex::getInstance()->prepare('SELECT * FROM UTILISATEURS WHERE token = ?');
+            $req->execute(array($token));
+            $req->setFetchMode(PDO::FETCH_CLASS, 'UtilisateurDTO');
+            $user = $req->fetch();
+            return $user;
+        } catch(Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
 
 
