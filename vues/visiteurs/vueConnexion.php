@@ -1,14 +1,15 @@
-<section id="'conteneuVisiteurs">
+<section id="conteneuVisiteurs">
+    <header>
+        <nav>
+            <?php $menuConnexion->afficherMenu(); ?>
 
-    <section>
+        </nav>
+    </header>
         <?php 
         
             $formulaireConnexion->afficherFormulaire();       
             $menuInscription->afficherMenu();
             $menuFermerConnexion->afficherMenu();
-        
-        
-        
         
         ?>
         

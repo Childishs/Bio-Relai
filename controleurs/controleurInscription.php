@@ -1,5 +1,9 @@
 <?php
 
+$menuConnexion = new Menu('btnConnexion');
+$menuConnexion->ajouterComposant($menuConnexion->creerItemLien('Connexion','connexion'));
+$leMenuConnexion = $menuConnexion->creerMenu('0','demandeConnexion');
+
     $formulaireInscription = new Formulaire('post','index.php','fConnexion','fConnexion');
 
     $formulaireInscription->ajouterComposantLigne($formulaireInscription->creerTitre("Je crée mon compte"));

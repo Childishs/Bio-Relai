@@ -1,6 +1,9 @@
-<section id="'conteneuVisiteurs">
-
-    <section>
+<section id="conteneuVisiteurs">
+    <header>
+        <nav>
+            
+        </nav>
+    </header>
         <?php 
         
             $formulaireInscription->afficherFormulaire(); 
