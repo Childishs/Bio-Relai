@@ -12,6 +12,7 @@
 
     <section>
         <?php 
+            var_dump($_GET);
             echo "Bienvenu à vous Responsable ! Voici vos infos !<br/>" ;
             echo "Votre magnfique nom de l'amour est :  " . $_SESSION['user']['nom'] . "<br/>";
             echo "TODO accès aux producteurs <br/>";

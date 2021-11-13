@@ -87,10 +87,10 @@ class UtilisateurDAO {
      * @param $statut le statut de la DB 
      * @return UtilisateurDto[]|null Selon la reception, un tableau d'objet ou null si vide 
      */
-    public function getAllByStatut(string $statut) : ?array {
+    public static function getAllByStatut(string $statut) : ?array {
         $req = DBConnex::getInstance()->prepare('SELECT * FROM UTILISATEURS WHERE statut = ?');
         $req->execute(array($statut));
-        $tous = $req->fetchAll(\PDO::FETCH_CLASS, get_class(new UtilisateurDTO));
+        $tous = $req->fetchAll(PDO::FETCH_CLASS, 'UtilisateurDTO');
         return $tous;
     }
 
