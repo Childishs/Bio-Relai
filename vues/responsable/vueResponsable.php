@@ -12,7 +12,13 @@
 
     <section>
         <?php 
-            var_dump($_GET);
+
+            if(isset($_SESSION['message']) && !empty($_SESSION['message'])) {
+                echo htmlspecialchars($_SESSION['message']);
+                $_SESSION['message'] = "";
+            }
+
+            echo "<br/>";
             echo "Bienvenu à vous Responsable ! Voici vos infos !<br/>" ;
             echo "Votre magnfique nom de l'amour est :  " . $_SESSION['user']['nom'] . "<br/>";
             echo "TODO accès aux producteurs <br/>";
