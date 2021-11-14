@@ -73,7 +73,9 @@ class UtilisateurDAO {
             $req = DBConnex::getInstance()->prepare("INSERT INTO UTILISATEURS (mail,mdp,statut,nomUtilisateur,prenomUtilisateur,token) VALUES (?,?,?,?,?,?)");
             $req->execute(array($user->getMail(), $mdp, $user->getStatut(), $user->getNomUtilisateur(), $user->getPrenomUtilisateur(), $token));
 
-            $_SESSION['user'] = ['token' => $token, 'nom' => $user->getNomUtilisateur(), 'prenom' => $user->getPrenomUtilisateur(), 'statut' => $user->getStatut()];
+            if(empty($_SESSION['user'])) {
+                $_SESSION['user'] = ['token' => $token, 'nom' => $user->getNomUtilisateur(), 'prenom' => $user->getPrenomUtilisateur(), 'statut' => $user->getStatut(), 'email' => $user->getMail()];
+            }
 
 
         } catch(Exception $e) {

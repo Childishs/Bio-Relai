@@ -6,6 +6,29 @@ if($_SESSION['user']['statut'] === "responsable") {
         die();
     }
     
+    if(isset($_POST['ajoutProd'])) {
+        // Création d'un producteur 
+        if(!empty($_POST['mdp']) && !empty($_POST['email']) && !empty($_POST['nom']) && !empty($_POST['prenom'])){
+            $login = htmlspecialchars($_POST['email']);
+            $mdp = htmlspecialchars($_POST['mdp']);
+            $nom = htmlspecialchars($_POST['nom']);
+            $prenom = htmlspecialchars($_POST['prenom']);
+    
+            //ajout des informations le UtilisateurDTO créé
+            $Utilisateur = new UtilisateurDTO();
+            $Utilisateur->setmail($login);
+            $Utilisateur->setMdp($mdp);
+            $Utilisateur->setNomUtilisateur($nom);
+            $Utilisateur->setPrenomUtilisateur($prenom);
+            $Utilisateur->setStatut('producteurs');
+    
+            //a voir
+            UtilisateurDAO::inscription($Utilisateur);
+            $_SESSION['message'] = "DAMN DANIEL IS THAT A NEW USER ? hotsmiley "; 
+        }
+    }
+
+
     if(isset($_POST['sauvegardeResp'])) {
         // MODIFICATION COMPTE POUR RESPONSABLE (Il se modifie lui même)
             $email = htmlspecialchars($_POST['email']);
