@@ -8,7 +8,18 @@ class ProduitDTO{
     private $idCategorie;
     private $idUtilisateur;
     private $idProducteur;
+    private $idVente;
+    private $prix;
+    private $unite;
+    private $quantite;
 
+    public function __construct($idProduit, $idVente, $prix, $unite, $quantite){
+        $this->idProduit = $idProduit;
+        $this->idVente = $idVente;
+        $this->prix =$prix;
+        $this->unite=$unite;
+        $this->quantite=$quantite;
+    }
 
     public function getDescriptionProduit()
     {
@@ -64,5 +75,7 @@ class ProduitDTO{
     {
         return $this->idProducteur;
     }
+
+
 
 }
