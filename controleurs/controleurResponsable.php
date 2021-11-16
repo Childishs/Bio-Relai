@@ -10,6 +10,11 @@ if($_SESSION['user']['statut'] === "responsable") {
         require_once(dispatcher::dispatch('ResponsableCategories'));
         die();
     }
+
+    if(isset($_GET['Responsable']) && $_GET['Responsable'] === "ResponsableFacture") {
+        require_once(dispatcher::dispatch(('ResponsableFacture')));
+        die();
+    }
     
     if(isset($_POST['ajoutProd'])) {
         // Création d'un producteur 
@@ -86,6 +91,7 @@ if($_SESSION['user']['statut'] === "responsable") {
         $menuResponsable->ajouterComposant($menuResponsable->creerItemLien("Home","Responsable"));
         $menuResponsable->ajouterComposant($menuResponsable->creerItemLien("Producteurs","ResponsableProducteurs"));
         $menuResponsable->ajouterComposant($menuResponsable->creerItemLien("Catégories", "ResponsableCategories"));
+        $menuResponsable->ajouterComposant($menuResponsable->creerItemLien("Factures", "ResponsableFacture"));
 
     
         // $menuResponsable = $menuResponsable->creerMenu('0','demandeConnexion');
