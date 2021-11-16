@@ -5,6 +5,7 @@
         <nav>
             <?php 
             $menuResponsable->afficherMenu();
+            $menuFermerConnexion->afficherMenu();
             ?>
 
         </nav>
@@ -39,6 +40,12 @@
             ?>
 
             </table>
+
+            <?php 
+
+            $formulaireResponsable->afficherFormulaire();
+
+            ?>
 
     </section>
 </section>

@@ -10,6 +10,10 @@ $menuResponsable = new Menu('btnConnexion');
     $menuResponsable->creerMenu('0','Responsable');
 
 
+
+    $menuFermerConnexion = new Menu('fermerConnexion');
+    $menuFermerConnexion->ajouterComposant($menuFermerConnexion->creerItemImage('deconnexion','fermer',''));
+    $menuFermerConnexion->creerMenuImage('0','demandeDeconnexion');
 // récupérer tous les producteurs 
 
 $producteurs = UtilisateurDAO::getAllByStatut('producteurs');

@@ -33,6 +33,21 @@ if($_SESSION['user']['statut'] === "responsable") {
         }
     }
 
+    if(isset($_POST['ajoutCat'])) {
+        // Création d'un producteur 
+        if(!empty($_POST['categorie'])){
+            $nomCat = htmlspecialchars($_POST['categorie']);
+    
+            //ajout des informations le UtilisateurDTO créé
+            $categorie = new CategorieDTO();
+            $categorie->setNomCat($nomCat);
+    
+            //a voir
+            CategorieDAO::create($categorie);
+            $_SESSION['message'] = "DAMN DANIEL IS THAT A NEW CATEGORIE  ? hotsmiley SWGA "; 
+        }
+    }
+
 
     if(isset($_POST['sauvegardeResp'])) {
         // MODIFICATION COMPTE POUR RESPONSABLE (Il se modifie lui même)
@@ -60,6 +75,9 @@ if($_SESSION['user']['statut'] === "responsable") {
     
     }  
 
+    $menuFermerConnexion = new Menu('fermerConnexion');
+    $menuFermerConnexion->ajouterComposant($menuFermerConnexion->creerItemImage('deconnexion','fermer',''));
+    $menuFermerConnexion->creerMenuImage('0','demandeDeconnexion');
 
         
     

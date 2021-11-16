@@ -5,6 +5,7 @@
         <nav>
             <?php 
             $menuResponsable->afficherMenu();
+            $menuFermerConnexion->afficherMenu();
             ?>
 
         </nav>

@@ -38,4 +38,21 @@ class CategorieDAO {
     }
 
 
+    /**
+     * Permet de créer une catégorie et l'ajouter en base de données 
+     * 
+     * @param CategorieDTO $cat - Un objet catégorie 
+     * @return bool - true/false selon 
+     */
+    public static function create(CategorieDTO $cat) : bool {
+        try {
+            $req = DBConnex::getInstance()->prepare('INSERT INTO CATEGORIES (nomCategorie) VALUES (?)');
+            $req->execute(array($cat->getNomCat()));
+            return true;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
 }
