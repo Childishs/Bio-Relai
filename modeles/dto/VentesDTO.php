@@ -2,11 +2,11 @@
 
 class VentesDTO {
 
-    private int $idVente;
-    private DateTime $dateVente;
-    private DateTime $dateDebutProd;
-    private DateTime $dateFinProd;
-    private DateTime $dateFinCli;
+    private  $idVente;
+    private  $dateVente;
+    private  $dateDebutProd;
+    private  $dateFinProd;
+    private  $dateFinCli;
 
     public function setId($data){
         $this->idVente = $data;
