@@ -25,6 +25,7 @@ class Formulaire{
 	public function ajouterComposantLigne($unComposant){
 		$this->ligneComposants[] = $unComposant;
 	}
+
 	
 	public function ajouterComposantTab(){
 		$this->tabComposants[] = $this->ligneComposants;
@@ -51,10 +52,16 @@ class Formulaire{
 		return $composant;
 	}
 
-	public function creerInputDate($unNom, $unId, $required = NULL) {
-		$composant = "<input type='date' id='".$unId."' name='".$unNom."' ".$required." >";
+	public function creerInputDate($unNom, $unId, $required = NULL, $value = NULL) {
+		$composant = "<input type='date' id='".$unId."' name='".$unNom."'value='".$value."'  ".$required." >";
 		return $composant;
 	}
+
+	public function creerInputHidden($unNom, $unId, $uneValue) {
+		$composant = "<input type = 'hidden' name = '" . $unNom . "' id = '" . $unId . "'  value = '" . $uneValue . '"';
+		return $composant;
+	}
+
 
 	public function creerInputTexte($unNom, $unId, $uneValue , $required , $placeholder , $pattern){
 		$composant = "<input type = 'text' name = '" . $unNom . "' id = '" . $unId . "' ";

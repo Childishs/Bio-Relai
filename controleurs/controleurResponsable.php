@@ -38,7 +38,6 @@ if($_SESSION['user']['statut'] === "responsable") {
         if(!empty($_POST['id']) && !empty($_POST['categorie'])) {
             $id = htmlspecialchars($_POST['id']);
             if($_SESSION['idCat'] ==  $id) {
-                var_dump($_SESSION['idCat'] == $id);
                 $categorie = htmlspecialchars($_POST['categorie']); 
                 $cat = new CategorieDTO();
                 $cat->setId($id);
@@ -50,6 +49,55 @@ if($_SESSION['user']['statut'] === "responsable") {
             }
         }
     }
+
+
+    if(isset($_POST['upDateVente'])) {
+        if(!empty($_POST['EtatProd']) && !empty($_POST['EtatAchat']) && !empty($_POST['debutProd']) && !empty($_POST['finprod']) && !empty($_POST['debutAchat']) && !empty($_POST['finAchat'])){
+            $debutProd = htmlspecialchars($_POST['debutProd']);
+            $id = htmlspecialchars($_POST['id']);
+            $finProd = htmlspecialchars($_POST['finprod']);
+            $debutAchat = htmlspecialchars($_POST['debutAchat']);
+            $finAchat = htmlspecialchars($_POST['finAchat']);
+            $etatProd = htmlspecialchars($_POST['EtatProd']);
+            $etatAchat = htmlspecialchars($_POST['EtatAchat']);
+
+            $vente = new VentesDTO();
+            $vente->setId($id);
+            $vente->setDateDebutProd($debutProd);
+            $vente->setDateFinProd($finProd);
+            $vente->setDateVente($debutAchat);
+            $vente->setDateFinCli($finAchat);
+            $vente->setEtatProd($etatProd);
+            $vente->setEtatAchat($etatAchat);
+
+            VentesDAO::update($vente);
+            require_once(dispatcher::dispatch(('ResponsableVente')));
+            die();
+        }
+    }
+
+  
+
+    if(isset($_POST['modifProd'])) {
+        if(!empty($_POST['id']) && !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['email'])) {
+            $token = $_POST['id'];
+            // if($_SESSION['tokenAdMod'] ==  $token) {
+                $nom = htmlspecialchars($_POST['nom']); 
+                $prenom = htmlspecialchars($_POST['prenom']); 
+                $email = htmlspecialchars($_POST['email']); 
+                $prod = new UtilisateurDTO();
+                $prod->setToken($token);
+                $prod->setNomUtilisateur($nom);
+                $prod->setPrenomUtilisateur($prenom);
+                $prod->setmail($email);
+                UtilisateurDAO::update($prod);
+                require_once(dispatcher::dispatch('ResponsableProducteurs'));
+                $_SESSION['message'] = "Modification prise en compte";
+                die();
+            //}
+        }
+    }
+
 
 
     if(isset($_POST['ajoutVente'])) {

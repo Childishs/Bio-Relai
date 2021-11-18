@@ -28,6 +28,7 @@
             echo "TODO aux autorisations de vente <br/>";
             echo "TODO Ajouter de nouvelles catégories <br/>";
             echo "TODO Inspecter les factures (clients et producteurs) <br/>";
+            echo "-----_> update porducteurs marche pas (bdd ok, req ok, data ok -> wtf ?";
             var_dump($_SESSION);
 
             $formulaireRouting->afficherMenu();

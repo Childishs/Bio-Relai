@@ -43,10 +43,10 @@
                 echo '<td>' . $ventes->getEtatProd() . '</td>';
                 echo '<td>' . $ventes->getEtatAchat() . '</td>';
                 echo '<td> <a href="index.php?Responsable=ResponsableVente&id='.$ventes->getId().'&action=delete"> <i class="fas fa-trash"></i> </a></td>';
-                echo '<td> <i class="fas fa-user-edit"></i> </td>';
+                echo '<td> <a href="index.php?Responsable=ResponsableVente&id='.$ventes->getId().'&action=toUpdate"> <i class="fas fa-user-edit"></i> </a></td>';
                 echo '</tr>';
             }
-        
+
             ?>
 
             </table>

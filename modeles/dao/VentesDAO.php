@@ -44,7 +44,7 @@ class VentesDAO {
      */
     public static function update(VentesDTO $vente) : bool {
         try {
-            $req = DBConnex::getInstance()->prepare('UPDATE VENTES SET dateVente = ?, dateDebutProd = ?, dateFinProd = ?, dateFinCli = ?, EtatProd = ?, EtatAchat = ? where idVente = ?');
+            $req = DBConnex::getInstance()->prepare('UPDATE VENTES SET dateVente = ?, dateDebutProd = ?, dateFinProd = ?, dateFinCli = ?, EtatProd = ?, EtatAchat = ? WHERE idVente = ?');
             $req->execute(array($vente->getDateVente(), $vente->getDateDebutProd(), $vente->getDateFinProd(), $vente->getDateFinCli(), $vente->getEtatProd(), $vente->getEtatAchat(), $vente->getId()));
             return true;
         } catch (Exception $e) {
