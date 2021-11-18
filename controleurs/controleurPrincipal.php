@@ -6,7 +6,7 @@ if(isset($_GET['demandeConnexion'])){
     $_SESSION['controleurN1']="connexion";
 }
 
-else if(isset($_SESSION['user'])) {
+else if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
     $_SESSION['controleurN1'] = $_SESSION['user']['statut'];
 }
 

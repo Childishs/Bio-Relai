@@ -9,11 +9,12 @@ if($_SESSION['user']['statut'] === "responsable") {
     $menuResponsable->ajouterComposant($menuResponsable->creerItemLien("Catégories", "ResponsableCategories"));
     $menuResponsable->ajouterComposant($menuResponsable->creerItemLien("Factures", "ResponsableFacture"));
     $menuResponsable->ajouterComposant($menuResponsable->creerItemLien("Ventes", "ResponsableVente"));
+    $menuResponsable->ajouterComposant($menuResponsable->creerItemLien("Deconnexion", "Deco"));
+
 
 
     // $menuResponsable = $menuResponsable->creerMenu('0','demandeConnexion');
     $menuResponsable->creerMenu('0','Responsable');
-
 
 
     if(isset($_GET['Responsable'])) {
@@ -32,6 +33,12 @@ if($_SESSION['user']['statut'] === "responsable") {
         elseif($_GET['Responsable'] === "ResponsableVente") {
             require_once(dispatcher::dispatch(('ResponsableVente')));
            die();
+        }elseif($_GET['Responsable'] === "Deco") {
+            $_SESSION['statut']= "visiteurs";
+            $_SESSION['token'] = [];
+            $_SESSION['user'] = [];
+            include_once dispatcher::dispatch('visiteurs');
+            die();
         }
     }
     if(isset($_POST['updateCat'])) {
@@ -198,20 +205,6 @@ if($_SESSION['user']['statut'] === "responsable") {
     $menuFermerConnexion->creerMenuImage('0','demandeDeconnexion');
 
         
-
-    
-    
-        // Menu - Accès interne
-    
-        $formulaireRouting = new Menu("InsideResp");
-    
-         // $menuResponsable->ajouterComposant($menuConnexion->creerItemLien('Connexion','connexion'));
-         $formulaireRouting->ajouterComposant($formulaireRouting->creerItemLien("Producteurs","ResponsableProducteurs"));
-         $formulaireRouting->ajouterComposant($formulaireRouting->creerItemLien("Compte","ResponsableCompte"));
-     
-         // $menuResponsable = $menuResponsable->creerMenu('0','demandeConnexion');
-         $formulaireRouting->creerMenu('0','Responsable');
-     
     
     
     

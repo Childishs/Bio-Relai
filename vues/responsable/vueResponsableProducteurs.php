@@ -48,5 +48,10 @@
             $formulaireResponsable->afficherFormulaire();
             ?>
 
+            <script>
+                let champ = document.getElementById("id");
+                champ.hidden = true;
+            </script>
+
     </section>
 </section>

@@ -31,7 +31,6 @@
             echo "-----_> update porducteurs marche pas (bdd ok, req ok, data ok -> wtf ?";
             var_dump($_SESSION);
 
-            $formulaireRouting->afficherMenu();
 
             $formulaireResponsable->afficherFormulaire();
             ?>
