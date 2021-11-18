@@ -34,8 +34,8 @@
                 echo '<td>' . $producteurs->getNomUtilisateur() . '</td>';
                 echo '<td>' . $producteurs->getPrenomUtilisateur() . '</td>';
                 echo '<td>' . $producteurs->getMail() . '</td>';
-                echo '<td> <i class="fas fa-trash"></i> </td>';
-                echo '<td> <i class="fas fa-user-edit"></i> </td>';
+                echo '<td> <a href="index.php?Responsable=ResponsableProducteurs&id='.$producteurs->getToken().'&action=delete"> <i class="fas fa-trash"></i> </a></td>';
+                echo '<td> <a href="index.php?Responsable=ResponsableProducteurs&id='.$producteurs->getToken().'&action=toUpdate"> <i class="fas fa-user-edit"></i> </a></td>';
                 echo '</tr>';
             }
         

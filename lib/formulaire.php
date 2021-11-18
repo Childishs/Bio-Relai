@@ -32,7 +32,7 @@ class Formulaire{
 	}
 	
 	public function creerTitre($unLabel){
-	    $composant = "<h1>" . $unLabel . "</h1>";
+	    $composant = "<h1 id='formTitle'>" . $unLabel . "</h1>";
 	    return $composant;
 	}
 	
@@ -68,7 +68,7 @@ class Formulaire{
 			$composant .= "required ";
 		}
 		if (!empty($pattern)){
-			$composant .= "pattern = '" . $pattern . "' ";
+			$composant .= $pattern ;
 		}
 		$composant .= "/>";
 		return $composant;

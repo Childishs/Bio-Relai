@@ -54,5 +54,34 @@ class CategorieDAO {
         }
     }
 
+    public static function delete(int $id) : bool {
+        try {
+            $req = DBConnex::getInstance()->prepare('DELETE FROM CATEGORIES WHERE idCategorie = ?');
+            $req->execute(array($id));
+            return true;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        } 
+    }
+
+
+
+    /**
+     * Permet d'update une catégotie 
+     * 
+     * @param CategorieDTO
+     * @return bool
+     */
+    public static function update(CategorieDTO $cat) : bool {
+        try {
+            $req = DBConnex::getInstance()->prepare('UPDATE CATEGORIES SET nomCategorie = ? where idCategorie = ?');
+            $req->execute(array($cat->getNomCat(), $cat->getId()));
+            return true;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
 
 }

@@ -34,19 +34,40 @@ if($_SESSION['user']['statut'] === "responsable") {
            die();
         }
     }
+    if(isset($_POST['updateCat'])) {
+        if(!empty($_POST['id']) && !empty($_POST['categorie'])) {
+            $id = htmlspecialchars($_POST['id']);
+            if($_SESSION['idCat'] ==  $id) {
+                var_dump($_SESSION['idCat'] == $id);
+                $categorie = htmlspecialchars($_POST['categorie']); 
+                $cat = new CategorieDTO();
+                $cat->setId($id);
+                $cat->setNomCat($categorie);
+                CategorieDAO::update($cat);
+                require_once(dispatcher::dispatch('ResponsableCategories'));
+                $_SESSION['message'] = "Modification prise en compte";
+                die();
+            }
+        }
+    }
+
 
     if(isset($_POST['ajoutVente'])) {
-        if(!empty($_POST['debutProd']) && !empty($_POST['finprod']) && !empty($_POST['debutAchat']) && !empty($_POST['finAchat'])){
+        if(!empty($_POST['EtatProd']) && !empty($_POST['EtatAchat']) && !empty($_POST['debutProd']) && !empty($_POST['finprod']) && !empty($_POST['debutAchat']) && !empty($_POST['finAchat'])){
             $debutProd = htmlspecialchars($_POST['debutProd']);
             $finProd = htmlspecialchars($_POST['finprod']);
             $debutAchat = htmlspecialchars($_POST['debutAchat']);
             $finAchat = htmlspecialchars($_POST['finAchat']);
+            $etatProd = htmlspecialchars($_POST['EtatProd']);
+            $etatAchat = htmlspecialchars($_POST['EtatAchat']);
 
             $vente = new VentesDTO();
             $vente->setDateDebutProd($debutProd);
             $vente->setDateFinProd($finProd);
             $vente->setDateVente($debutAchat);
             $vente->setDateFinCli($finAchat);
+            $vente->setEtatProd($etatProd);
+            $vente->setEtatAchat($etatAchat);
 
             VentesDAO::create($vente);
             require_once(dispatcher::dispatch(('ResponsableVente')));
@@ -92,7 +113,7 @@ if($_SESSION['user']['statut'] === "responsable") {
             //a voir
             CategorieDAO::create($categorie);
             $_SESSION['message'] = "DAMN DANIEL IS THAT A NEW CATEGORIE  ? hotsmiley SWGA ";
-            require_once(dispatcher::dispatch(('ResponsableCategorie')));
+            require_once(dispatcher::dispatch(('ResponsableCategories')));
             die();  
         }
     }

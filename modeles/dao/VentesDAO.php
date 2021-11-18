@@ -44,8 +44,8 @@ class VentesDAO {
      */
     public static function update(VentesDTO $vente) : bool {
         try {
-            $req = DBConnex::getInstance()->prepare('UPDATE VENTES SET dateVente = ?, dateDebutProd = ?, dateFinProd = ?, dateFinCli = ? where idVente = ?');
-            $req->execute(array($vente->getDateVente(), $vente->getDateDebutProd(), $vente->getDateFinProd(), $vente->getDateFinCli(), $vente->getId()));
+            $req = DBConnex::getInstance()->prepare('UPDATE VENTES SET dateVente = ?, dateDebutProd = ?, dateFinProd = ?, dateFinCli = ?, EtatProd = ?, EtatAchat = ? where idVente = ?');
+            $req->execute(array($vente->getDateVente(), $vente->getDateDebutProd(), $vente->getDateFinProd(), $vente->getDateFinCli(), $vente->getEtatProd(), $vente->getEtatAchat(), $vente->getId()));
             return true;
         } catch (Exception $e) {
             die($e->getMessage());
@@ -60,14 +60,14 @@ class VentesDAO {
      */
     public static function create(VentesDTO $vente) : bool {
         try {
-            $req = DBConnex::getInstance()->prepare('INSERT INTO VENTES (dateVente, dateDebutProd, dateFinProd, dateFinCli) VALUES (?,?,?,?)');
+            $req = DBConnex::getInstance()->prepare('INSERT INTO VENTES (dateVente, dateDebutProd, dateFinProd, dateFinCli, EtatProd, EtatAchat) VALUES (?,?,?,?,?,?)');
             /*
             $vente->setDateVente($vente->getDateVente()->format('Y-m-d H:i:s'));
             $vente->setDateDebutProd($vente->getDateDebutProd()->format('Y-m-d H:i:s'));
             $vente->setDateFinProd($vente->getDateFinProd()->format('Y-m-d H:i:s'));
             $vente->setDateFinCli($vente->getDateFinCli()->format('Y-m-d H:i:s'));
             */
-            $req->execute(array($vente->getDateVente(), $vente->getDateDebutProd(), $vente->getDateFinProd(), $vente->getDateFinCli()));
+            $req->execute(array($vente->getDateVente(), $vente->getDateDebutProd(), $vente->getDateFinProd(), $vente->getDateFinCli(),$vente->getEtatProd(), $vente->getEtatAchat()));
             return true;
         } catch(Exception $e) {
             die($e->getMessage());

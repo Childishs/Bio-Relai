@@ -7,6 +7,24 @@ class VentesDTO {
     private  $dateDebutProd;
     private  $dateFinProd;
     private  $dateFinCli;
+    private  $EtatProd;
+    private  $EtatAchat;
+
+    public function getEtatProd() {
+        return $this->EtatProd;
+    }
+
+    public function getEtatAchat() {
+        return $this->EtatAchat;
+    }
+
+    public function setEtatProd($data) {
+        $this->EtatProd = $data;
+    }
+
+    public function setEtatAchat($data) {
+        $this->EtatAchat = $data;
+    }
 
     public function setId($data){
         $this->idVente = $data;

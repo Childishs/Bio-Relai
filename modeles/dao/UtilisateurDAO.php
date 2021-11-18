@@ -139,6 +139,22 @@ class UtilisateurDAO {
     }
 
 
+    /**
+     * Permet de supprimer un utilisateur 
+     * 
+     * @param int $token - Identification de l'utilsiateur 
+     * @return bool 
+     */
+    public static function delete(string $token) : bool {
+        try {
+            $req = DBConnex::getInstance()->prepare('DELETE FROM UTILISATEURS WHERE token = ?');
+            $req->execute(array($token));
+            return true;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 
 
 

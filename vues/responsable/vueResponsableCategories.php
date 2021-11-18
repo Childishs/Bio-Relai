@@ -32,17 +32,16 @@
                 echo '<tr>';
                 echo '<td>' . $categories->getId() . '</td>';
                 echo '<td>' . $categories->getNomCat() . '</td>';
-                echo '<td> <i class="fas fa-trash"></i> </td>';
-                echo '<td> <i class="fas fa-user-edit"></i> </td>';
+                echo '<td> <a href="index.php?Responsable=ResponsableCategories&id='.$categories->getId().'&action=delete"> <i class="fas fa-trash"></i> </a></td>';
+                echo '<td> <a href="index.php?Responsable=ResponsableCategories&id='.$categories->getId().'&action=toUpdate"> <i class="fas fa-user-edit"></i> </a></td>';
                 echo '</tr>';
             }
-        
             ?>
 
             </table>
 
             <?php 
-
+           // echo "<h1 id='formTitle'> Créer une catégorie </h1>";
             $formulaireResponsable->afficherFormulaire();
 
             ?>

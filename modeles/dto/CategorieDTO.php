@@ -8,6 +8,10 @@ class CategorieDTO {
         return $this->idCategorie;
     }
 
+    public function setId($id) {
+        $this->idCategorie = $id;
+    }
+
     public function setNomCat(string $cat) {
         $this->nomCategorie = $cat;
     }

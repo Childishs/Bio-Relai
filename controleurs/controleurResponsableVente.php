@@ -1,5 +1,13 @@
 <?php 
 
+
+if(isset($_GET['id']) && isset($_GET['action'])) {
+    if($_GET['action'] === "delete") {
+        VentesDAO::delete(htmlspecialchars($_GET['id']));
+        $_SESSION['message'] = "Élément supprimé avec succès";
+    }
+}
+
 $ventes = VentesDAO::getAll(); 
 
 $formulaireVente = new Formulaire('post','index.php','ajoutVente','ajoutVente');
@@ -30,6 +38,19 @@ $formulaireVente->ajouterComposantTab();
 
 $formulaireVente->ajouterComposantLigne($formulaireVente->creerInputDate("finAchat", "finAchat", "required"));
 $formulaireVente->ajouterComposantTab();
+
+$formulaireVente->ajouterComposantLigne($formulaireVente->creerLabel("Autorisation pour dépot producteur à la date de début : "));
+$formulaireVente->ajouterComposantTab();
+
+$formulaireVente->ajouterComposantLigne($formulaireVente->creerInputTexte("EtatProd", "EtatProd", "", 1, "OUVERT \ FERME", ""));
+$formulaireVente->ajouterComposantTab();
+
+$formulaireVente->ajouterComposantLigne($formulaireVente->creerLabel("Autorisation pour achat des utilisateurs à la date de début : "));
+$formulaireVente->ajouterComposantTab();
+
+$formulaireVente->ajouterComposantLigne($formulaireVente->creerInputTexte("EtatAchat", "EtatAchat", "", 1, "OUVERT \ FERME", ""));
+$formulaireVente->ajouterComposantTab();
+
 
 
 $formulaireVente->ajouterComposantLigne($formulaireVente->creerInputSubmit('ajoutVente','ajoutVente',"Créer la vente"));

@@ -1,5 +1,12 @@
 <?php 
 
+if(isset($_GET['id']) && isset($_GET['action'])) {
+    if($_GET['action'] === "delete") {
+        UtilisateurDAO::delete(htmlspecialchars($_GET['id']));
+        $_SESSION['message'] = "Élément supprimé avec succès";
+    }
+}
+
 
     $menuFermerConnexion = new Menu('fermerConnexion');
     $menuFermerConnexion->ajouterComposant($menuFermerConnexion->creerItemImage('deconnexion','fermer',''));
