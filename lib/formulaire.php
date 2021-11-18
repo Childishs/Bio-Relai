@@ -51,6 +51,11 @@ class Formulaire{
 		return $composant;
 	}
 
+	public function creerInputDate($unNom, $unId, $required = NULL) {
+		$composant = "<input type='date' id='".$unId."' name='".$unNom."' ".$required." >";
+		return $composant;
+	}
+
 	public function creerInputTexte($unNom, $unId, $uneValue , $required , $placeholder , $pattern){
 		$composant = "<input type = 'text' name = '" . $unNom . "' id = '" . $unId . "' ";
 		if (!empty($uneValue)){
@@ -110,7 +115,8 @@ class Formulaire{
 
 
 		// $composant = "<input type = 'button' value= '" . $uneValue . "' onclick= '" . history.go(-1) . "'>";
-		//return $composant;
+		//
+		return $composant;
 	}
 
 	public function creerInputImage($unNom, $unId, $uneSource){

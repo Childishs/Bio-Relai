@@ -61,10 +61,12 @@ class VentesDAO {
     public static function create(VentesDTO $vente) : bool {
         try {
             $req = DBConnex::getInstance()->prepare('INSERT INTO VENTES (dateVente, dateDebutProd, dateFinProd, dateFinCli) VALUES (?,?,?,?)');
+            /*
             $vente->setDateVente($vente->getDateVente()->format('Y-m-d H:i:s'));
             $vente->setDateDebutProd($vente->getDateDebutProd()->format('Y-m-d H:i:s'));
             $vente->setDateFinProd($vente->getDateFinProd()->format('Y-m-d H:i:s'));
             $vente->setDateFinCli($vente->getDateFinCli()->format('Y-m-d H:i:s'));
+            */
             $req->execute(array($vente->getDateVente(), $vente->getDateDebutProd(), $vente->getDateFinProd(), $vente->getDateFinCli()));
             return true;
         } catch(Exception $e) {

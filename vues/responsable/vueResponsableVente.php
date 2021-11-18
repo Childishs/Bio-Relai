@@ -46,6 +46,12 @@
 
             </table>
 
+            <?php 
+
+           $formulaireVente->afficherFormulaire();
+
+          ?>
+
 
     </section>
     

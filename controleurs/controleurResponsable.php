@@ -35,6 +35,26 @@ if($_SESSION['user']['statut'] === "responsable") {
         }
     }
 
+    if(isset($_POST['ajoutVente'])) {
+        if(!empty($_POST['debutProd']) && !empty($_POST['finprod']) && !empty($_POST['debutAchat']) && !empty($_POST['finAchat'])){
+            $debutProd = htmlspecialchars($_POST['debutProd']);
+            $finProd = htmlspecialchars($_POST['finprod']);
+            $debutAchat = htmlspecialchars($_POST['debutAchat']);
+            $finAchat = htmlspecialchars($_POST['finAchat']);
+
+            $vente = new VentesDTO();
+            $vente->setDateDebutProd($debutProd);
+            $vente->setDateFinProd($finProd);
+            $vente->setDateVente($debutAchat);
+            $vente->setDateFinCli($finAchat);
+
+            VentesDAO::create($vente);
+            require_once(dispatcher::dispatch(('ResponsableVente')));
+            die();
+
+        }
+    }
+
 
     if(isset($_POST['ajoutProd'])) {
         // Création d'un producteur 
@@ -54,7 +74,9 @@ if($_SESSION['user']['statut'] === "responsable") {
     
             //a voir
             UtilisateurDAO::inscription($Utilisateur);
-            $_SESSION['message'] = "DAMN DANIEL IS THAT A NEW USER ? hotsmiley "; 
+            $_SESSION['message'] = "DAMN DANIEL IS THAT A NEW USER ? hotsmiley ";
+            require_once(dispatcher::dispatch(('ResponsableProducteurs')));
+            die(); 
         }
     }
 
@@ -69,7 +91,9 @@ if($_SESSION['user']['statut'] === "responsable") {
     
             //a voir
             CategorieDAO::create($categorie);
-            $_SESSION['message'] = "DAMN DANIEL IS THAT A NEW CATEGORIE  ? hotsmiley SWGA "; 
+            $_SESSION['message'] = "DAMN DANIEL IS THAT A NEW CATEGORIE  ? hotsmiley SWGA ";
+            require_once(dispatcher::dispatch(('ResponsableCategorie')));
+            die();  
         }
     }
 
