@@ -199,14 +199,6 @@ if($_SESSION['user']['statut'] === "responsable") {
         $_SESSION['message'] = "Vos modifications ont bien été prises en compte";
     
     }  
-
-    $menuFermerConnexion = new Menu('fermerConnexion');
-    $menuFermerConnexion->ajouterComposant($menuFermerConnexion->creerItemImage('deconnexion','fermer',''));
-    $menuFermerConnexion->creerMenuImage('0','demandeDeconnexion');
-
-        
-    
-    
     
         // mise en place du form
         $formulaireResponsable = new Formulaire('post','index.php','RespUpdate','RespUpdate');
