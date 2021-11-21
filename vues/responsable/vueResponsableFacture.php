@@ -10,12 +10,12 @@
 
     <section>
         <?php 
-            echo "Bienvenu à vous Responsable ! ici vous gérez les factures !<br/>" ;
-            echo "<br/> Voici les factures présentes <br/>";
+            echo "<h1 class='title1'> Bienvenu à vous ". $_SESSION['user']['nom'].", </h1>" ;
+            echo "<h3 class='title3'> ici vous gérez les factures. </h3><br/>";
             // Faire un tableau d'infos modifiables 
            ?>
 
-           <table>
+        <table id="tableResp">
 
             <tr>
                 <th>Numéro</th>

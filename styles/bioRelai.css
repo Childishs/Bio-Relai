@@ -1,5 +1,6 @@
 @CHARSET "ISO-8859-1";
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
 
 
 
@@ -255,4 +256,160 @@ Formulaire de connexion
 
 
 
-/* Adhérents */ 
+/* Responsable */
+
+#tableResp {
+	font-family: 'Montserrat', Arial, sans-serif;
+	font-size: 18px;
+    border-collapse: collapse;
+    width: 80%;
+	margin: auto;
+}
+
+#tableResp td, #tableResp th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#tableResp tr:nth-child(even){
+	background-color: #f2f2f2;
+}
+
+#tableResp tr:hover {
+	background-color: #ddd;
+}
+
+#tableResp th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #04AA6D;
+	color: white;
+}
+
+.fas {
+	color:black;
+}
+
+.fas:hover {
+	color:#04AA6D;
+}
+
+.title1 {
+	color:rgb(9, 119, 9);
+	font-size: 2.5em;
+	margin-left:10px;
+	font-family: 'Montserrat', Arial, sans-serif;
+}
+
+.title3 {
+	margin-left:10px;
+	margin-top: -50px;
+	font-size: 1.5em;
+	letter-spacing: 2px;
+	color: #474544;
+	font-family: 'Montserrat', Arial, sans-serif;
+}
+
+form {
+	font-family: 'Montserrat', Arial, sans-serif;
+    padding: 37.5px;
+  	margin: 50px 0;
+}
+
+button, input, select, textarea {
+	color: #5A5A5A;
+	font: inherit;
+	margin: 0;
+}
+
+input {
+	line-height: normal;
+}
+
+#formTitle {
+	font-family: 'Montserrat', Arial, sans-serif;
+	color: #474544;
+	font-size: 32px;
+	font-weight: 700;
+	letter-spacing: 7px;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+input[type='text'], [type='password'], [type='date'] ,select {
+	background: none;
+  border: none;
+	border-bottom: solid 2px #474544;
+	color: #474544;
+	font-size: 1.000em;
+ 	 font-weight: 400;
+  letter-spacing: 1px;
+	margin: 0em 0 1.875em 0;
+	padding: 0 0 0.875em 0;
+  	text-transform: uppercase;
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+input[type='text']:focus, [type='password']:focus, [type='date']:focus  {
+	outline: none;
+	padding: 0 0 0.875em 0;
+}
+
+input[type='submit'] {
+	background: none;
+	border: solid 2px #474544;
+	color: #474544;
+	display: inline-block;
+	font-family: 'Helvetica', Arial, sans-serif;
+	font-size: 0.875em;
+	font-weight: bold;
+	outline: none;
+	padding: 20px 35px;
+	text-transform: uppercase;
+	-webkit-transition: all 0.3s;
+	  -moz-transition: all 0.3s;
+	  -ms-transition: all 0.3s;
+	  -o-transition: all 0.3s;
+	  transition: all 0.3s;
+  }
+  
+input[type='submit']:hover {
+	border: solid 2px rgb(9, 119, 9);
+	background:rgb(9, 119, 9);
+	color: #F2F3EB;
+  }
+
+  
+.container {
+	max-width: 768px;
+ 	margin: 60px auto;
+}		
+
+#debutProd, #finprod, #debutAchat, #finAchat {
+	background: none;
+	border: solid 2px #474544;
+	color: #474544;
+	display: inline-block;
+	font-family: 'Helvetica', Arial, sans-serif;
+	font-size: 0.875em;
+	font-weight: bold;
+	outline: none;
+	padding: 20px 35px;
+	text-transform: uppercase;
+	-webkit-transition: all 0.3s;
+	  -moz-transition: all 0.3s;
+	  -ms-transition: all 0.3s;
+	  -o-transition: all 0.3s;
+	  transition: all 0.3s;
+}

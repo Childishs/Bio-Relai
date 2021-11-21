@@ -11,12 +11,12 @@
 
     <section>
         <?php 
-            echo "Bienvenu à vous Responsable ! ici vous gérez les ventes !<br/>" ;
-            echo "<br/> Voici les ventes présentes <br/>";
+            echo "<h1 class='title1'> Bienvenu à vous ". $_SESSION['user']['nom'].", </h1>" ;
+            echo "<h3 class='title3'> ici vous gérez les ventes. </h3><br/>";
             // Faire un tableau d'infos modifiables 
            ?>
 
-           <table>
+            <table id="tableResp">
 
             <tr>
                 <th>Numéro</th>
@@ -51,12 +51,18 @@
 
             </table>
 
+            <div class="container">
             <?php 
 
            $formulaireVente->afficherFormulaire();
 
           ?>
+            </div>
 
+            <script>
+                let champ = document.getElementById("id");
+                champ.hidden = true;
+            </script>
 
     </section>
     

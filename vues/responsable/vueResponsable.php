@@ -19,7 +19,7 @@
             }
 
             echo "<br/>";
-            echo "Bienvenu à vous Responsable ! Voici vos infos !<br/>" ;
+            echo "<h1 class='title1'> Bienvenu à vous ". $_SESSION['user']['nom'].", </h1>" ;
             echo "Votre magnfique nom de l'amour est :  " . $_SESSION['user']['nom'] . "<br/>";
             echo "TODO accès aux producteurs <br/>";
             echo "TODO à la gestion de vente en cours <br/>";
@@ -30,8 +30,10 @@
             echo "-----_> update porducteurs marche pas (bdd ok, req ok, data ok -> wtf ?";
             var_dump($_SESSION);
 
-
+            echo " <div class='container'>";
             $formulaireResponsable->afficherFormulaire();
+            echo "</div>";
             ?>
+
     </section>
 </section>
