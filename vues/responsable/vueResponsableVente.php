@@ -60,8 +60,18 @@
             </div>
 
             <script>
-                let champ = document.getElementById("id");
-                champ.hidden = true;
+                 let champ = document.getElementById("id");
+                 champ != null ? champ.hidden = true : console.log('nul');
+
+                // Mise en place des mins, pour les dates 
+                // Dès que le début de la vente est saisie, 
+                let valueInitProd = document.getElementById("debutProd");
+                console.log(valueInitProd);
+                let value = valueInitProd.value;
+                if(value.length < 0) {
+                    console.log(value);
+                }
+
             </script>
 
     </section>

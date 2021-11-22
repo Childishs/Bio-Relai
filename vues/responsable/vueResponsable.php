@@ -20,15 +20,20 @@
 
             echo "<br/>";
             echo "<h1 class='title1'> Bienvenu à vous ". $_SESSION['user']['nom'].", </h1>" ;
-            echo "Votre magnfique nom de l'amour est :  " . $_SESSION['user']['nom'] . "<br/>";
-            echo "TODO accès aux producteurs <br/>";
-            echo "TODO à la gestion de vente en cours <br/>";
-            echo "TODO autorisations de commandes <br/>";
-            echo "TODO aux autorisations de vente <br/>";
-            echo "TODO Ajouter de nouvelles catégories <br/>";
-            echo "TODO Inspecter les factures (clients et producteurs) <br/>";
-            echo "-----_> update porducteurs marche pas (bdd ok, req ok, data ok -> wtf ?";
-            var_dump($_SESSION);
+           ?>
+
+            <h2> En qualité de responsable, vous pouvez modifier les différents éléments suivants : </h2>
+            <ul>
+                <li> Les producteurs (informations de compte) </li>
+                <li> Les catégories (ajout, modification et suppression) </li>
+                <li> La gestion des ventes (ajout, suppression, modification) </li>
+                <li> La mise en place des accords de mise en vente pour les producteurs </li>
+                <li> La mise en place des accords d'achat pour les utilisateurs </li>
+                <li> La consultation de toutes les factures </li>
+            </ul>
+
+
+            <?php 
 
             echo " <div class='container'>";
             $formulaireResponsable->afficherFormulaire();

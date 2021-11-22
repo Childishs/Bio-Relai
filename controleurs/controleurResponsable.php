@@ -115,6 +115,10 @@ if($_SESSION['user']['statut'] === "responsable") {
             $finAchat = htmlspecialchars($_POST['finAchat']);
             $etatProd = htmlspecialchars($_POST['EtatProd']);
             $etatAchat = htmlspecialchars($_POST['EtatAchat']);
+            
+
+            // test ici pour la durée (si la fin est avant le début, c'est bof)
+
 
             $vente = new VentesDTO();
             $vente->setDateDebutProd($debutProd);

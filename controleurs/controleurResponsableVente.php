@@ -34,16 +34,30 @@ $formulaireVente->ajouterComposantTab();
 
 $formulaireVente->ajouterComposantLigne($formulaireVente->creerLabel("Autorisation pour dépot producteur à la date de début : "));
 $formulaireVente->ajouterComposantTab();
-
+/*
 $formulaireVente->ajouterComposantLigne($formulaireVente->creerInputTexte("EtatProd", "EtatProd", "", 1, "OUVERT \ FERME", ""));
 $formulaireVente->ajouterComposantTab();
+*/
+$formulaireVente->ajouterComposantLigne($formulaireVente->creerRadio("EtatProd", "OUVERT", "EtatProd", "OUVERT"));
+$formulaireVente->ajouterComposantTab();
+
+$formulaireVente->ajouterComposantLigne($formulaireVente->creerRadio("EtatProd", "FERME", "EtatProd", "FERME"));
+$formulaireVente->ajouterComposantTab();
+
 
 $formulaireVente->ajouterComposantLigne($formulaireVente->creerLabel("Autorisation pour achat des utilisateurs à la date de début : "));
 $formulaireVente->ajouterComposantTab();
 
-$formulaireVente->ajouterComposantLigne($formulaireVente->creerInputTexte("EtatAchat", "EtatAchat", "", 1, "OUVERT \ FERME", ""));
+$formulaireVente->ajouterComposantLigne($formulaireVente->creerRadio("EtatAchat", "OUVERT", "EtatAchat", "OUVERT"));
 $formulaireVente->ajouterComposantTab();
 
+$formulaireVente->ajouterComposantLigne($formulaireVente->creerRadio("EtatAchat", "FERME", "EtatAchat", "FERME"));
+$formulaireVente->ajouterComposantTab();
+
+/*
+$formulaireVente->ajouterComposantLigne($formulaireVente->creerInputTexte("EtatAchat", "EtatAchat", "", 1, "OUVERT \ FERME", ""));
+$formulaireVente->ajouterComposantTab();
+*/
 
 
 $formulaireVente->ajouterComposantLigne($formulaireVente->creerInputSubmit('ajoutVente','ajoutVente',"Créer la vente"));
@@ -105,14 +119,22 @@ if(isset($_GET['id']) && isset($_GET['action'])) {
         $formulaireVente->ajouterComposantLigne($formulaireVente->creerLabel("Autorisation pour dépot producteur à la date de début : "));
         $formulaireVente->ajouterComposantTab();
 
-        $formulaireVente->ajouterComposantLigne($formulaireVente->creerInputTexte("EtatProd", "EtatProd", $vente->getEtatProd(), 0, "", ""));
+        $formulaireVente->ajouterComposantLigne($formulaireVente->creerRadio("EtatProd", "OUVERT", "EtatProd", "OUVERT"));
         $formulaireVente->ajouterComposantTab();
+
+        $formulaireVente->ajouterComposantLigne($formulaireVente->creerRadio("EtatProd", "FERME", "EtatProd", "FERME"));
+        $formulaireVente->ajouterComposantTab();
+
 
         $formulaireVente->ajouterComposantLigne($formulaireVente->creerLabel("Autorisation pour achat des utilisateurs à la date de début : "));
         $formulaireVente->ajouterComposantTab();
 
-        $formulaireVente->ajouterComposantLigne($formulaireVente->creerInputTexte("EtatAchat", "EtatAchat", $vente->getEtatProd(), 0, "", ""));
+        $formulaireVente->ajouterComposantLigne($formulaireVente->creerRadio("EtatAchat", "OUVERT", "EtatAchat", "OUVERT"));
         $formulaireVente->ajouterComposantTab();
+
+        $formulaireVente->ajouterComposantLigne($formulaireVente->creerRadio("EtatAchat", "FERME", "EtatAchat", "FERME"));
+        $formulaireVente->ajouterComposantTab();
+
 
 
 
