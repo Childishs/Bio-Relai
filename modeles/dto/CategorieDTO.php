@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class CategorieDTO {
     private int $idCategorie;
@@ -6,6 +6,10 @@ class CategorieDTO {
 
     public function getId() {
         return $this->idCategorie;
+    }
+
+    public function setId($id) {
+        $this->idCategorie = $id;
     }
 
     public function setNomCat(string $cat) {

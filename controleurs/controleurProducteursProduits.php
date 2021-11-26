@@ -7,7 +7,11 @@ $menuFermerConnexion->ajouterComposant($menuFermerConnexion->creerItemImage('dec
 $menuFermerConnexion->creerMenuImage('0','demandeDeconnexion');
 // récupérer tous les producteurs
 
-$produits = ProduitDAO::getAll($_SESSION['utilisateur']['id']);
+$produits = ProduitDAO::getAll($_SESSION['user']['id']);
+
+$categorie=CategorieDAO::getAll();
+
+var_dump($categorie);
 
 //Création d'un formulaire pour l'ajout d'un produit
 $formulaireNewProduit = new Formulaire('post','index.php','ProduitCreer','ProduitCreer');
@@ -37,7 +41,7 @@ $formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerLabel('
 
 $formulaireNewProduit->ajouterComposantTab();
 foreach($categorie as $categorie){
-    $formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerSelect("","","",""));
+    $formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerRadio(""));
     $formulaireNewProduit->ajouterComposantTab();
 }
 
@@ -49,9 +53,13 @@ $formulaireNewProduit->creerFormulaire();
 
 if(isset($_GET['idProduit']) && isset($_GET['action'])) {
     if ($_GET['action'] === "delete") {
-        ProduitDAO::delete(htmlspecialchars($_GET['idProduit']));
+        ProduitDAO::supprimerProduit(htmlspecialchars($_GET['idProduit']));
         $_SESSION['message'] = "Élément supprimé avec succès";
     } else if ($_GET['action'] === "toUpdate") {
+
+
+
+        $produit = new ProduitDTO();
 
         //Création d'un formulaire pour la modification d'un produit
         $formulaireModifProduit = new Formulaire('post', 'index.php', 'ProduitModif', 'ProduitModif');
@@ -81,12 +89,12 @@ if(isset($_GET['idProduit']) && isset($_GET['action'])) {
         $formulaireModifProduit->ajouterComposantTab();
 
         foreach ($categorie as $categorie) {
-            $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerSelect("", "", "", ""));
+            $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerRadio($categorie->getNomCat(), $categorie->getId(), "categorie", "categorie"));
             $formulaireModifProduit->ajouterComposantTab();
         }
 
-        $formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerInputSubmit('ajoutProduit', 'ajoutProduit', "Sauvegarder les informations"));
-        $formulaireNewProduit->ajouterComposantTab();
+        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerInputSubmit('modifProduit', 'modifProduit', "Sauvegarder les informations"));
+        $formulaireModifProduit->ajouterComposantTab();
 
         $formulaireModifProduit->creerFormulaire();
 

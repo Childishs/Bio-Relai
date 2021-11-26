@@ -10,8 +10,6 @@
         <?php // echo $laListeProducteurs;
         echo "Voici vos Produits ! </br>";
         echo "</br>N'hésitez pas à en ajouter des nouveaux !</br>";
-
-        $listeProduits->afficherListe();
         ?>
 
 
@@ -23,7 +21,7 @@
         <a href="vues/producteurs/vueProducteursUnProduit.php">
             <input type="button" value="Ajouter un Produit">
             <?php
-            $_SESSION=['produit']['ajouter'];
+            $_SESSION=['user']['ajoutProduit'];
             ?>
         </a>
         </form>
@@ -32,17 +30,10 @@
             <a href="vues/producteurs/vueProducteursUnProduit.php">
                 <input type="button" value="Modifier un Produit">
                 <?php
-                $_SESSION=['produit']['modif'];
+                $_SESSION=['user']['modifProduit'];
                 ?>
             </a>
         </form>
-
-
-
-
-
-
-
 
 
     </section>

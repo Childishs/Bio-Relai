@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 class CategorieDAO {
 
-/**
+    /**
      * Permet de récupérer une cat avec son id
-     * 
-     * @param int $id - id pour troouver une catégorie 
+     *
+     * @param int $id - id pour troouver une catégorie
      * @return CategorieDTO|null - S'il trouve la cat ou non
      */
     public static function getOne(int $id) : ?CategorieDTO {
@@ -21,8 +21,8 @@ class CategorieDAO {
     }
 
     /**
-     * Permet de récupérer toutes les catégories 
-     * 
+     * Permet de récupérer toutes les catégories
+     *
      * @return CategorieDTO[]|null - Array d'objet ou null s'il n'y a rien
      */
     public static function getAll() : ?array {
@@ -36,6 +36,52 @@ class CategorieDAO {
             die($e->getMessage());
         }
     }
+
+
+    /**
+     * Permet de créer une catégorie et l'ajouter en base de données
+     *
+     * @param CategorieDTO $cat - Un objet catégorie
+     * @return bool - true/false selon
+     */
+    public static function create(CategorieDTO $cat) : bool {
+        try {
+            $req = DBConnex::getInstance()->prepare('INSERT INTO CATEGORIES (nomCategorie) VALUES (?)');
+            $req->execute(array($cat->getNomCat()));
+            return true;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public static function delete(int $id) : bool {
+        try {
+            $req = DBConnex::getInstance()->prepare('DELETE FROM CATEGORIES WHERE idCategorie = ?');
+            $req->execute(array($id));
+            return true;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
+
+    /**
+     * Permet d'update une catégotie
+     *
+     * @param CategorieDTO
+     * @return bool
+     */
+    public static function update(CategorieDTO $cat) : bool {
+        try {
+            $req = DBConnex::getInstance()->prepare('UPDATE CATEGORIES SET nomCategorie = ? where idCategorie = ?');
+            $req->execute(array($cat->getNomCat(), $cat->getId()));
+            return true;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 
 
 }
