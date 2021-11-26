@@ -6,13 +6,11 @@
  */
 
 class ProduitDAO{
-    /**
-     * @param string $idProduit
-     * @return mixed|void
-     */
-    public function getOne(string $idProduit){
+
+
+    public static function getOne(string $idProduit){
         try{
-            $req = DBConnex::getInstance()->prepare("SELECT * FROM PRODUIT");
+            $req = DBConnex::getInstance()->prepare("SELECT * FROM PRODUITS WHERE idProduit = ?");
             $req->execute(array($idProduit));
             $req->setFetchMode(PDO::FETCH_CLASS, 'ProduitDTO');
             $produit = $req->fetch();
@@ -24,12 +22,10 @@ class ProduitDAO{
     }
 
 
-    public static function getAll() : ?array {
+    public static function getAll($idUtilisateur) : ?array {
         try {
-            $req = DBConnex::getInstance()->prepare('SELECT * FROM PRODUIT');
-            $req->execute();
-
-
+            $req = DBConnex::getInstance()->prepare('SELECT * FROM PRODUITS WHERE idUtilisateur = ?');
+            $req->execute(array($idUtilisateur));
             $all =$req->fetchAll(PDO::FETCH_CLASS, 'ProduitDTO');
             return $all;
 
@@ -38,10 +34,10 @@ class ProduitDAO{
         }
     }
 
-    public function creerProduit(ProduitDTO $newProduit)
+    public static function creerProduit(ProduitDTO $newProduit)
     {
         try {
-            $req = DBConnex::getInstance()->prepare('INSERT INTO PRODUIT (nomProduit,descriptionProduit,photoProduit,idCategorie,idUtilisateur,idProducteur) VALUES (?,?,?,?,?,?)');
+            $req = DBConnex::getInstance()->prepare('INSERT INTO PRODUITS (nomProduit,descriptionProduit,photoProduit,idCategorie,idUtilisateur,idProducteur) VALUES (?,?,?,?,?,?)');
             $req->execute(array($newProduit->getNomProduit(), $newProduit->getDescriptionProduit(), $newProduit->getPhotoProduit(), $newProduit->getIdProducteur()));
             if (empty($_SESSION['user'])) {
                 $_SESSION['produit'] = ['nom' => $newProduit->getNomProduit(), 'description' => $newProduit->getNomProduit(), 'photo' => $newProduit->getPhotoProduit(), 'categorie' => $newProduit->getIdCategorie(), 'producteur' => $newProduit->getIdProducteur()];
@@ -52,9 +48,9 @@ class ProduitDAO{
         }
     }
 
-    public function modifierProduit(ProduitDTO $produit){
+    public static function modifierProduit(ProduitDTO $produit){
         try {
-            $req = DBConnex::getInstance()->prepare("UPDATE PRODUIT SET nomProduit = ?,descriptionProduit = ?,photoProduit = ?,idCategorie = ? WHERE idProduit = ?");
+            $req = DBConnex::getInstance()->prepare("UPDATE PRODUITS SET nomProduit = ?,descriptionProduit = ?,photoProduit = ?,idCategorie = ? WHERE idProduit = ?");
             $req->execute(array($produit->getNomProduit(), $produit->getDescriptionProduit(), $produit->getPhotoProduit(), $produit->getIdCategorie(), $produit->getIdProduit()));
         }
         catch(Exception $e){
@@ -62,10 +58,10 @@ class ProduitDAO{
         }
     }
 
-    public function supprimerProduit(ProduitDTO $produit){
+    public static function supprimerProduit($idProduit){
         try{
-            $req = DBConnex::getInstance()->prepare("DELETE FROM PRODUIT WHERE idProduit=?");
-            $req->execute(array($produit->getIdProduit()));
+            $req = DBConnex::getInstance()->prepare("DELETE FROM PRODUITS WHERE idProduit=?");
+            $req->execute(array($idProduit));
         }
         catch(Exception $e){
             die($e->getMessage());
@@ -73,7 +69,7 @@ class ProduitDAO{
     }
 
     //proposer à la vente
-    public function propProduitVente(ProduitDTO $produit, $idVente,$unite,$quantite,$prix){
+    public static function propProduitVente(ProduitDTO $produit, $idVente,$unite,$quantite,$prix){
         try{
             $req= DBConnex::getInstance()->prepare ("INSERT INTO PROPOSER (idVente,idProduit,unite,quantite,prix) VALUES (?,?,?,?)");
             $req->execute(array($idVente,$produit->getIdProduit(),$unite,$quantite,$prix));
@@ -88,16 +84,43 @@ class ProduitDAO{
 
 
     //modifier produit à la vente
-    public function modifProduitVente(){
+    public static function modifProduitVente(ProduitDTO $produit, $idVente,$unite,$quantite,$prix){
         try{
             $req= DBConnex::getInstance()->prepare ("INSERT INTO PROPOSER (idVente,idProduit,unite,quantite,prix) VALUES (?,?,?,?)");
-            //$req->setFetchMode(PDO::FETCH_CLASS, 'ProduitDTO');
+            $req->execute(array($produit->getIdProduit(),$idVente, $unite, $quantite, $prix));
+            $req->setFetchMode(PDO::FETCH_CLASS, 'ProduitDTO');
             $produit = $req->fetch();
             return $produit;
         }
         catch(Exception $e){
             die($e->getMessage());
         }
-
     }
+
+    public static function suppProduitVente(ProduitDTO $produit, $idVente){
+        try{
+            $req = DBConnex::getInstance()->prepare("DELETE FROM PROPOSER WHERE idProduit=? and idVente=?");
+            $req->execute(array($produit->getIdProduit(),$idVente));
+            return true;
+
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public static function getOneVente($idVente){
+        try{
+            $req = DBConnex::getInstance()->prepare("SELECT * FROM PROPOSER WHERE idVente= ?");
+            $req->execute(array($idProduit));
+            $req->setFetchMode(PDO::FETCH_CLASS, 'ProduitDTO');
+            $produit = $req->fetch();
+            return $produit;
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+
 }

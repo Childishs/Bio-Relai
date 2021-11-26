@@ -1,79 +1,100 @@
 <?php
 
-if($_SESSION['user']['statut'] === "producteur") {
-
-    if (isset($_GET['Producteur'])) {
-        require_once(dispatcher::dispatch('Producteur'));
-        die();
-    }
-
-    $menuProducteur = new Menu('btnConnexion');
-    // $menuResponsable->ajouterComposant($menuConnexion->creerItemLien('Connexion','connexion'));
-    $menuProducteur->ajouterComposant($menuProducteur->creerItemLien("Home","Producteur"));
 
 
-    // $menuResponsable = $menuResponsable->creerMenu('0','demandeConnexion');
-    $menuProducteur->creerMenu('0','Producteur');
+$menuFermerConnexion = new Menu('fermerConnexion');
+$menuFermerConnexion->ajouterComposant($menuFermerConnexion->creerItemImage('deconnexion','fermer',''));
+$menuFermerConnexion->creerMenuImage('0','demandeDeconnexion');
+// récupérer tous les producteurs
 
+$produits = ProduitDAO::getAll($_SESSION['utilisateur']['id']);
 
-    // Menu - Accès interne
+//Création d'un formulaire pour l'ajout d'un produit
+$formulaireNewProduit = new Formulaire('post','index.php','ProduitCreer','ProduitCreer');
 
-    $formulaireRouting = new Menu("InsideResp");
+$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerTitre("Creer produit"));
+$formulaireNewProduit->ajouterComposantTab();
 
-    // $menuResponsable->ajouterComposant($menuConnexion->creerItemLien('Connexion','connexion'));
-    $formulaireRouting->ajouterComposant($formulaireRouting->creerItemLien("Producteurs","ResponsableProducteurs"));
-    $formulaireRouting->ajouterComposant($formulaireRouting->creerItemLien("Compte","ResponsableCompte"));
+$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerLabel("Nom du produit"));
+$formulaireNewProduit->ajouterComposantTab();
 
-    // $menuResponsable = $menuResponsable->creerMenu('0','demandeConnexion');
-    $formulaireRouting->creerMenu('0','Responsable');
+$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerInputTexte('nomProd', 'nomProd',"", 0,'', 'Nom du Produit'));
+$formulaireNewProduit->ajouterComposantTab();
 
+$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerLabel('Description :'));
+$formulaireNewProduit->ajouterComposantTab();
 
+$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerInputTexte('description','description',"",0,"","Description"));
+$formulaireNewProduit->ajouterComposantTab();
 
+$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerLabel("Photo"));
+$formulaireNewProduit->ajouterComposantTab();
 
-    // mise en place du form
-    $formulaireResponsable = new Formulaire('post','index.php','RespUpdate','RespUpdate');
+$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerInputTexte('photo', 'photo', "", 0,'', 'Photo'));
+$formulaireNewProduit->ajouterComposantTab();
 
-    $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerTitre("Modifier mes informations"));
-    $formulaireResponsable->ajouterComposantTab();
+$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerLabel('Catégorie'));
 
-    $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel("Prénom"));
-    $formulaireResponsable->ajouterComposantTab();
-
-    $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputTexte('prenom', 'prenom', htmlspecialchars($_SESSION['user']['prenom']), 0,'', ''));
-    $formulaireResponsable->ajouterComposantTab();
-
-    $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel('Nom :'));
-    $formulaireResponsable->ajouterComposantTab();
-
-    $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputTexte('nom','nom',htmlspecialchars($_SESSION['user']['nom']),0,"",''));
-    $formulaireResponsable->ajouterComposantTab();
-
-    $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel("E-mail"));
-    $formulaireResponsable->ajouterComposantTab();
-
-    $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputTexte('email', 'email', htmlspecialchars($_SESSION['user']['email']), 0,'', ''));
-    $formulaireResponsable->ajouterComposantTab();
-
-    $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel('Ancien mot de Passe :'));
-    $formulaireResponsable->ajouterComposantTab();
-
-    $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputMdp('mdp','mdp',0,"**********",''));
-    $formulaireResponsable->ajouterComposantTab();
-
-    $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel('Nouveau mot de passe :'));
-    $formulaireResponsable->ajouterComposantTab();
-
-    $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputMdp('mdp2','mdp2',0,"Votre nouveau mot de passe",''));
-    $formulaireResponsable->ajouterComposantTab();
-
-    $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputSubmit('sauvegardeResp','sauvegardeResp',"Sauvegarder vos informations"));
-    $formulaireResponsable->ajouterComposantTab();
-
-
-    $formulaireResponsable->creerFormulaire();
-
-
-
-
-    require_once('vues/producteurs/vueProducteursVentes.php');
+$formulaireNewProduit->ajouterComposantTab();
+foreach($categorie as $categorie){
+    $formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerSelect("","","",""));
+    $formulaireNewProduit->ajouterComposantTab();
 }
+
+$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerInputSubmit('ajoutProduit','ajoutProduit',"Sauvegarder les informations"));
+$formulaireNewProduit->ajouterComposantTab();
+
+
+$formulaireNewProduit->creerFormulaire();
+
+if(isset($_GET['idProduit']) && isset($_GET['action'])) {
+    if ($_GET['action'] === "delete") {
+        ProduitDAO::delete(htmlspecialchars($_GET['idProduit']));
+        $_SESSION['message'] = "Élément supprimé avec succès";
+    } else if ($_GET['action'] === "toUpdate") {
+
+        //Création d'un formulaire pour la modification d'un produit
+        $formulaireModifProduit = new Formulaire('post', 'index.php', 'ProduitModif', 'ProduitModif');
+
+        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerTitre("Modifier un produit"));
+        $formulaireModifProduit->ajouterComposantTab();
+
+        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerLabel("Nom du produit"));
+        $formulaireModifProduit->ajouterComposantTab();
+
+        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerInputTexte('nomProd', 'nomProd', $produit->getNomProduit(), 0, '', ''));
+        $formulaireModifProduit->ajouterComposantTab();
+
+        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerLabel('Description :'));
+        $formulaireModifProduit->ajouterComposantTab();
+
+        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerInputTexte('description', 'description', $produit->getDescriptionProduit(), 0, "", ''));
+        $formulaireModifProduit->ajouterComposantTab();
+
+        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerLabel("Photo"));
+        $formulaireModifProduit->ajouterComposantTab();
+
+        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerInputTexte('photo', 'photo', $produit->getPhotoProduit(), 0, '', ''));
+        $formulaireModifProduit->ajouterComposantTab();
+
+        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerLabel('Catégorie'));
+        $formulaireModifProduit->ajouterComposantTab();
+
+        foreach ($categorie as $categorie) {
+            $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerSelect("", "", "", ""));
+            $formulaireModifProduit->ajouterComposantTab();
+        }
+
+        $formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerInputSubmit('ajoutProduit', 'ajoutProduit', "Sauvegarder les informations"));
+        $formulaireNewProduit->ajouterComposantTab();
+
+        $formulaireModifProduit->creerFormulaire();
+
+
+    }
+}
+
+require_once('vues/producteurs/vueProducteursProduits.php');
+
+
+
