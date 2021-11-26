@@ -1,27 +1,32 @@
 <?php
 
-if($_SESSION['user']['statut'] === 'producteurs'){
+if($_SESSION['user']['statut'] === 'producteurs') {
     $menuProducteur = new Menu("btnConnexion");
-    $menuProducteur->ajouterComposant($menuProducteur->creerItemLien("Home","Producteurs"));
-    $menuProducteur->ajouterComposant($menuProducteur->creerItemLien("Produits","Produits"));
-    $menuProducteur->ajouterComposant($menuProducteur->creerItemLien("Ventes","Ventes"));
-    $menuProducteur->ajouterComposant($menuProducteur->creerItemLien("Factures","Factures"));
-    $menuProducteur->creerMenu('0',"Producteurs");
+    $menuProducteur->ajouterComposant($menuProducteur->creerItemLien("Home", "Producteurs"));
+    $menuProducteur->ajouterComposant($menuProducteur->creerItemLien("Produits", "Produits"));
+    $menuProducteur->ajouterComposant($menuProducteur->creerItemLien("Ventes", "Ventes"));
+    $menuProducteur->ajouterComposant($menuProducteur->creerItemLien("Factures", "Factures"));
+    $menuProducteur->creerMenu('0', "Producteurs");
 
-    if(isset($_GET['Producteurs']) && $_GET['Producteurs'] === 'Produits'){
+    if (isset($_GET['Producteurs']) && $_GET['Producteurs'] === 'Produits') {
         require_once(dispatcher::dispatch('ProducteursProduits'));
         die();
-    }
-    elseif(isset($_GET['Producteurs']) && $_GET['Producteurs'] === 'Ventes'){
+    } elseif (isset($_GET['Producteurs']) && $_GET['Producteurs'] === 'Ventes') {
         require_once(dispatcher::dispatch('ProducteursVentes'));
         die();
-    }
-    elseif(isset($_GET['Producteurs']) && $_GET['Producteurs'] === 'Factures'){
+    } elseif (isset($_GET['Producteurs']) && $_GET['Producteurs'] === 'Factures') {
         require_once(dispatcher::dispatch('ProducteursFactures'));
+        die();
+    } elseif ($_GET['Producteurs'] === "Deco") {
+        $_SESSION['statut'] = "visiteurs";
+        $_SESSION['token'] = [];
+        $_SESSION['user'] = [];
+        include_once dispatcher::dispatch('visiteurs');
         die();
     }
 
-    elseif(isset($_POST['ajoutProduit'])){
+
+    if(isset($_POST['ajoutProduit'])){
         //foreach pour récupérer les infos de la categorie
         if(!empty($_POST['nomProduit']) && !empty($_POST['descriptionProduit']) && !empty($_POST['photoProduit']) && !empty($_POST['categorie']) ){
             $nomProduit = htmlspecialchars($_POST['nomProduit']);
@@ -37,8 +42,9 @@ if($_SESSION['user']['statut'] === 'producteurs'){
         ProduitDAO::creerProduit($produit);
 
         require_once('vues/producteurs/vueProducteursProduits.php');
+        die();
     }
-    elseif(isset($_POST['modifProduit'])){
+    if(isset($_POST['modifProduit'])){
         if(!empty($_POST['nomProduit']) && !empty($_POST['descriptionProduit']) && !empty($_POST['photoProduit']) && !empty($_POST['categorie']) ){
             $nomProduit = htmlspecialchars($_POST['nomProduit']);
             $descriptionProduit = htmlspecialchars($_POST['descriptionProduit']);
@@ -56,11 +62,12 @@ if($_SESSION['user']['statut'] === 'producteurs'){
         die();
     }
 
-    elseif(isset($_POST['suppProduit'])){
+    if(isset($_POST['suppProduit'])){
         $idProduit=htmlspecialchars($_POST('idProduit'));
         ProduitDAO::supprimerProduit($idProduit);
 
         require_once('vues/producteurs/vueProducteursProduits.php');
+        die();
     }
 
     // mise en place du form
@@ -107,4 +114,5 @@ if($_SESSION['user']['statut'] === 'producteurs'){
 
 
     require_once("vues/producteurs/vueProducteurs.php");
+
 }

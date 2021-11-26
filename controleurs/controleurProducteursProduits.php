@@ -11,93 +11,90 @@ $produits = ProduitDAO::getAll($_SESSION['user']['id']);
 
 $categorie=CategorieDAO::getAll();
 
-var_dump($categorie);
+
 
 //Création d'un formulaire pour l'ajout d'un produit
-$formulaireNewProduit = new Formulaire('post','index.php','ProduitCreer','ProduitCreer');
+$formulaireProducteur = new Formulaire('post','index.php','ajoutProduit','ajoutProd');
 
-$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerTitre("Creer produit"));
-$formulaireNewProduit->ajouterComposantTab();
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerTitre("Creer produit"));
+$formulaireProducteur->ajouterComposantTab();
 
-$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerLabel("Nom du produit"));
-$formulaireNewProduit->ajouterComposantTab();
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel("Nom du produit"));
+$formulaireProducteur->ajouterComposantTab();
 
-$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerInputTexte('nomProd', 'nomProd',"", 0,'', 'Nom du Produit'));
-$formulaireNewProduit->ajouterComposantTab();
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputTexte('nomProd', 'nomProd',"", 0,'', 'Nom du Produit'));
+$formulaireProducteur->ajouterComposantTab();
 
-$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerLabel('Description :'));
-$formulaireNewProduit->ajouterComposantTab();
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel('Description :'));
+$formulaireProducteur->ajouterComposantTab();
 
-$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerInputTexte('description','description',"",0,"","Description"));
-$formulaireNewProduit->ajouterComposantTab();
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputTexte('description','description',"",0,"","Description"));
+$formulaireProducteur->ajouterComposantTab();
 
-$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerLabel("Photo"));
-$formulaireNewProduit->ajouterComposantTab();
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel("Photo"));
+$formulaireProducteur->ajouterComposantTab();
 
-$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerInputTexte('photo', 'photo', "", 0,'', 'Photo'));
-$formulaireNewProduit->ajouterComposantTab();
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputTexte('photo', 'photo', "", 0,'', 'Photo'));
+$formulaireProducteur->ajouterComposantTab();
 
-$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerLabel('Catégorie'));
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel('Catégorie'));
+$formulaireProducteur->ajouterComposantTab();
 
-$formulaireNewProduit->ajouterComposantTab();
 foreach($categorie as $categorie){
-    $formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerRadio(""));
-    $formulaireNewProduit->ajouterComposantTab();
+    $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerRadio("categorie",$categorie->getNomCat(),"categorie",$categorie->getId()));
+    $formulaireProducteur->ajouterComposantTab();
 }
 
-$formulaireNewProduit->ajouterComposantLigne($formulaireNewProduit->creerInputSubmit('ajoutProduit','ajoutProduit',"Sauvegarder les informations"));
-$formulaireNewProduit->ajouterComposantTab();
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputSubmit('ajoutProduit','ajoutProduit',"Ajouter le Produit"));
+$formulaireProducteur->ajouterComposantTab();
 
 
-$formulaireNewProduit->creerFormulaire();
+$formulaireProducteur->creerFormulaire();
 
-if(isset($_GET['idProduit']) && isset($_GET['action'])) {
+if(isset($_GET['id']) && isset($_GET['action'])) {
     if ($_GET['action'] === "delete") {
-        ProduitDAO::supprimerProduit(htmlspecialchars($_GET['idProduit']));
+        ProduitDAO::supprimerProduit(htmlspecialchars($_GET['id']));
         $_SESSION['message'] = "Élément supprimé avec succès";
     } else if ($_GET['action'] === "toUpdate") {
 
+        $prod = ProduitDAO::getOne(htmlspecialchars($_GET['id']));
 
-
-        $produit = new ProduitDTO();
 
         //Création d'un formulaire pour la modification d'un produit
-        $formulaireModifProduit = new Formulaire('post', 'index.php', 'ProduitModif', 'ProduitModif');
+        $formulaireProducteur = new Formulaire('post', 'index.php', 'modifProduit', 'modifProduit');
 
-        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerTitre("Modifier un produit"));
-        $formulaireModifProduit->ajouterComposantTab();
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerTitre("Modifier un produit"));
+        $formulaireProducteur->ajouterComposantTab();
 
-        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerLabel("Nom du produit"));
-        $formulaireModifProduit->ajouterComposantTab();
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel("Nom du produit"));
+        $formulaireProducteur->ajouterComposantTab();
 
-        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerInputTexte('nomProd', 'nomProd', $produit->getNomProduit(), 0, '', ''));
-        $formulaireModifProduit->ajouterComposantTab();
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputTexte('nomProd', 'nomProd', $prod->getNomProduit(), 0, '', ''));
+        $formulaireProducteur->ajouterComposantTab();
 
-        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerLabel('Description :'));
-        $formulaireModifProduit->ajouterComposantTab();
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel('Description :'));
+        $formulaireProducteur->ajouterComposantTab();
 
-        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerInputTexte('description', 'description', $produit->getDescriptionProduit(), 0, "", ''));
-        $formulaireModifProduit->ajouterComposantTab();
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputTexte('description', 'description', $prod->getDescriptionProduit(), 0, "", ''));
+        $formulaireProducteur->ajouterComposantTab();
 
-        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerLabel("Photo"));
-        $formulaireModifProduit->ajouterComposantTab();
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel("Photo"));
+        $formulaireProducteur->ajouterComposantTab();
 
-        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerInputTexte('photo', 'photo', $produit->getPhotoProduit(), 0, '', ''));
-        $formulaireModifProduit->ajouterComposantTab();
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputTexte('photo', 'photo', $prod->getPhotoProduit(), 0, '', ''));
+        $formulaireProducteur->ajouterComposantTab();
 
-        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerLabel('Catégorie'));
-        $formulaireModifProduit->ajouterComposantTab();
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel('Catégorie'));
+        $formulaireProducteur->ajouterComposantTab();
 
-        foreach ($categorie as $categorie) {
-            $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerRadio($categorie->getNomCat(), $categorie->getId(), "categorie", "categorie"));
-            $formulaireModifProduit->ajouterComposantTab();
+        foreach($categorie as $categorie){
+            $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerRadio("categorie",$categorie->getNomCat(),"categorie",$categorie->getId()));
+            $formulaireProducteur->ajouterComposantTab();
         }
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputSubmit('modifProduit', 'modifProduit', "Sauvegarder les informations"));
+        $formulaireProducteur->ajouterComposantTab();
 
-        $formulaireModifProduit->ajouterComposantLigne($formulaireModifProduit->creerInputSubmit('modifProduit', 'modifProduit', "Sauvegarder les informations"));
-        $formulaireModifProduit->ajouterComposantTab();
-
-        $formulaireModifProduit->creerFormulaire();
-
+        $formulaireProducteur->creerFormulaire();
 
     }
 }
