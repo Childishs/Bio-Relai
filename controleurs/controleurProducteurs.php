@@ -117,6 +117,30 @@ if($_SESSION['user']['statut'] === 'producteurs') {
         die();
     }
 
+    if(isset($_POST['sauvegardeProducteur'])) {
+        // MODIFICATION COMPTE POUR RESPONSABLE (Il se modifie lui même)
+        $email = htmlspecialchars($_POST['email']);
+        $mdp = htmlspecialchars($_POST['mdp2']);
+        $nom = htmlspecialchars($_POST['nom']);
+        $prenom = htmlspecialchars($_POST['prenom']);
+
+        $Utilisateur = new UtilisateurDTO();
+        $UtilisateurActif = new UtilisateurDTO();
+        $UtilisateurActif = UtilisateurDAO::getOne($_SESSION['user']['token']);
+
+
+        $mdp != null ? $Utilisateur->setMdp($mdp) : $Utilisateur->setMdp($UtilisateurActif->getMdp());
+        $email != null ? $Utilisateur->setmail($email) : $Utilisateur->setmail($UtilisateurActif->getMail());
+        $nom != null ? $Utilisateur->setNomUtilisateur($nom) : $Utilisateur->setNomUtilisateur($UtilisateurActif->getNomUtilisateur());
+        $prenom != null ? $Utilisateur->setPrenomUtilisateur($prenom) : $Utilisateur->setPrenomUtilisateur($UtilisateurActif->getPrenomUtilisateur());
+        $Utilisateur->setToken($_SESSION['user']['token']);
+
+        UtilisateurDAO::update($Utilisateur);
+        $_SESSION['message'] = "Vos modifications ont bien été prises en compte";
+
+    }
+
+
     // mise en place du form
     $formulaireProducteur = new Formulaire('post','index.php','ProducteurModif','ProducteurModif');
 
@@ -139,12 +163,6 @@ if($_SESSION['user']['statut'] === 'producteurs') {
     $formulaireProducteur->ajouterComposantTab();
 
     $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputTexte('email', 'email', htmlspecialchars($_SESSION['user']['email']), 0,'', ''));
-    $formulaireProducteur->ajouterComposantTab();
-
-    $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel('Ancien mot de Passe :'));
-    $formulaireProducteur->ajouterComposantTab();
-
-    $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputMdp('mdp','mdp',0,"**********",''));
     $formulaireProducteur->ajouterComposantTab();
 
     $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel('Nouveau mot de passe :'));
