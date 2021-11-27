@@ -73,7 +73,7 @@ if($_SESSION['user']['statut'] === 'producteurs') {
 
     if(isset($_POST['ajoutProdVente'])){
         //foreach pour récupérer les infos de la categorie
-        if(!empty($_POST['nomProduit']) && !empty($_POST['idVente']) ){
+        if(!empty($_POST['produit']) && !empty($_POST['idVente']) ){
             $idProduit = htmlspecialchars($_POST['produit']);
             $prix = htmlspecialchars($_POST['prix']);
             $quantite = htmlspecialchars($_POST['nbProd']);

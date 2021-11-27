@@ -34,13 +34,13 @@ foreach($produits as $produits){
 $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel("Choisissez le prix de vente :"));
 $formulaireProducteur->ajouterComposantTab();
 
-$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputTexte('prix', 'prix', htmlspecialchars($_SESSION['user']['prix']), 0,'', ''));
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputTexte('prix', 'prix', '', 0,'', ''));
 $formulaireProducteur->ajouterComposantTab();
 
 $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel("Choisissez le nombre produits à vendre :"));
 $formulaireProducteur->ajouterComposantTab();
 
-$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputTexte('nbProd', 'nbProd', htmlspecialchars($_SESSION['user']['nbProd']), 0,'', ''));
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputTexte('nbProd', 'nbProd', '', 0,'', ''));
 $formulaireProducteur->ajouterComposantTab();
 
 $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel("Choisissez une vente :"));
