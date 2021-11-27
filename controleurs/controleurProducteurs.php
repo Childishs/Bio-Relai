@@ -17,7 +17,7 @@ if($_SESSION['user']['statut'] === 'producteurs') {
     } elseif (isset($_GET['Producteurs']) && $_GET['Producteurs'] === 'Factures') {
         require_once(dispatcher::dispatch('ProducteursFactures'));
         die();
-    } elseif ($_GET['Producteurs'] === "Deco") {
+    } elseif (isset($_GET['Producteurs']) && $_GET['Producteurs'] === "Deco") {
         $_SESSION['statut'] = "visiteurs";
         $_SESSION['token'] = [];
         $_SESSION['user'] = [];
@@ -74,13 +74,13 @@ if($_SESSION['user']['statut'] === 'producteurs') {
     if(isset($_POST['ajoutProdVente'])){
         //foreach pour récupérer les infos de la categorie
         if(!empty($_POST['nomProduit']) && !empty($_POST['idVente']) ){
-            $nomProduit = htmlspecialchars($_POST['nomProduit']);
-            $idVente = htmlspecialchars($_POST['idVente']);
+            $idProduit = htmlspecialchars($_POST['produit']);
             $prix = htmlspecialchars($_POST['prix']);
-            $quantite = htmlspecialchars($_POST['quantite']);
+            $quantite = htmlspecialchars($_POST['nbProd']);
+            $idVente = htmlspecialchars($_POST['idVente']);
         }
         $produit = new ProduitDTO();
-        $produit->setNomProduit($nomProduit);
+        $produit->setIdProduit($idProduit);
         $produit->setPrix($prix);
         $produit->setQuantite($quantite);
         $produit->setDateVente($idVente);

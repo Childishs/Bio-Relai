@@ -45,6 +45,13 @@ class ProduitDTO{
         return $this->dateVente;
     }
 
+
+
+    public function setDateVente($dateVente): void
+    {
+        $this->dateVente = $dateVente;
+    }
+
     public function getIdUtilisateur()
     {
         return $this->idUtilisateur;
