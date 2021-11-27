@@ -2,89 +2,114 @@
 
 
 
+$menuFermerConnexion = new Menu('fermerConnexion');
+$menuFermerConnexion->ajouterComposant($menuFermerConnexion->creerItemImage('deconnexion','fermer',''));
+$menuFermerConnexion->creerMenuImage('0','demandeDeconnexion');
+// récupérer tous les producteurs
 
-//Création d'un formulaire pour l'ajout d'un produit à la vente
-$formulaireNewVente = new Formulaire('post','index.php','VenteCreer','VenteCreer');
+$produits = ProduitDAO::getAll($_SESSION['user']['id']);
 
-$formulaireNewVente->ajouterComposantLigne($formulaireNewVente->creerTitre("Proposer un produit à la vente"));
-$formulaireNewVente->ajouterComposantTab();
+$categorie=CategorieDAO::getAll();
 
-$formulaireNewVente->ajouterComposantLigne($formulaireNewVente->creerLabel("Choisir une vente :"));
-$formulaireNewVente->ajouterComposantTab();
+$ventes=VentesDAO::getAll();
 
-$formulaireNewVente->ajouterComposantLigne($formulaireNewVente->creerInputTexte('idVente', 'idVente', htmlspecialchars($_SESSION['vente']['idVente']), 0,'', ''));
-$formulaireNewVente->ajouterComposantTab();
 
-$formulaireNewVente->ajouterComposantLigne($formulaireNewVente->creerLabel('Choix du produit:'));
-$formulaireNewVente->ajouterComposantTab();
 
-$formulaireNewVente->ajouterComposantLigne($formulaireNewVente->creerInputTexte('idProduit','idProduit',htmlspecialchars($_SESSION['vente']['idProduit']),0,"",''));
-$formulaireNewVente->ajouterComposantTab();
+//Création d'un formulaire pour l'ajout d'un produit
+$formulaireProducteur = new Formulaire('post','index.php','ajoutProdVente','ajoutProdVente');
 
-$formulaireNewVente->ajouterComposantLigne($formulaireNewVente->creerLabel("Unité proposée à la vente"));
-$formulaireNewVente->ajouterComposantTab();
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerTitre("Ajouter un produit à une vente :"));
+$formulaireProducteur->ajouterComposantTab();
 
-$formulaireNewVente->ajouterComposantLigne($formulaireNewVente->creerInputTexte('unite', 'unite', htmlspecialchars($_SESSION['vente']['unite']), 0,'', ''));
-$formulaireNewVente->ajouterComposantTab();
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel("Choisissez un produit :"));
+$formulaireProducteur->ajouterComposantTab();
 
-$formulaireNewVente->ajouterComposantLigne($formulaireNewVente->creerLabel('Prix à l\'unité'));
-$formulaireNewVente->ajouterComposantTab();
 
-$formulaireNewVente->ajouterComposantLigne($formulaireNewVente->creerInputTexte('prix','prix',htmlspecialchars($_SESSION['vente']['unite']),0,"",''));
-$formulaireNewVente->ajouterComposantTab();
+foreach($produits as $produits){
+    $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerRadio("produit",$produits->getNomProduit(),"produit",$produits->getIdProduit()));
+    $formulaireProducteur->ajouterComposantTab();
+}
 
-$formulaireNewVente->ajouterComposantLigne($formulaireNewVente->creerInputSubmit('ajoutProduitVente', 'ajoutProduitVente', "Ajouter un produit à la vente"));
-$formulaireNewVente->ajouterComposantTab();
 
-$formulaireNewVente->creerFormulaire();
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel("Choisissez le prix de vente :"));
+$formulaireProducteur->ajouterComposantTab();
+
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputTexte('prix', 'prix', htmlspecialchars($_SESSION['user']['prix']), 0,'', ''));
+$formulaireProducteur->ajouterComposantTab();
+
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel("Choisissez le nombre produits à vendre :"));
+$formulaireProducteur->ajouterComposantTab();
+
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputTexte('nbProd', 'nbProd', htmlspecialchars($_SESSION['user']['nbProd']), 0,'', ''));
+$formulaireProducteur->ajouterComposantTab();
+
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel("Choisissez une vente :"));
+$formulaireProducteur->ajouterComposantTab();
+
+foreach($ventes as $ventes){
+    $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerRadio("vente",$ventes->getDateVente(),"vente",$ventes->getId()));
+    $formulaireProducteur->ajouterComposantTab();
+}
+
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputSubmit('ajoutProdVente','ajoutProdVente',"Ajouter le Produit"));
+$formulaireProducteur->ajouterComposantTab();
+
+
+$formulaireProducteur->creerFormulaire();
 
 if(isset($_GET['id']) && isset($_GET['action'])) {
     if ($_GET['action'] === "delete") {
-        ProduitDAO::deleteVente(htmlspecialchars($_GET['produit']['vente']));
+        ProduitDAO::suppProduitVente('id',$produits->getId());
         $_SESSION['message'] = "Élément supprimé avec succès";
     } else if ($_GET['action'] === "toUpdate") {
-        $formulaireModifVente = new Formulaire("post", "", "", "");
-        $formulaireModifVente = new Formulaire('post','index.php','VenteCreer','VenteCreer');
 
-        $formulaireModifVente->ajouterComposantLigne($formulaireModifVente->creerTitre("Proposer un produit à la vente"));
-        $formulaireModifVente->ajouterComposantTab();
+        $prod = ProduitDAO::getOneVente(htmlspecialchars($_GET['id']));
 
-        $formulaireModifVente->ajouterComposantLigne($formulaireModifVente->creerLabel("Choisir une vente :"));
-        $formulaireModifVente->ajouterComposantTab();
 
-        $formulaireModifVente->ajouterComposantLigne($formulaireModifVente->creerInputTexte('idVente', 'idVente', htmlspecialchars($_SESSION['vente']['idVente']), 0,'', ''));
-        $formulaireModifVente->ajouterComposantTab();
+        //Création d'un formulaire pour la modification d'un produit
+        $formulaireProducteur = new Formulaire('post', 'index.php', 'modifProduitVente', 'modifProduitVente');
 
-        $formulaireModifVente->ajouterComposantLigne($formulaireModifVente->creerLabel('Choix du produit:'));
-        $formulaireModifVente->ajouterComposantTab();
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerTitre("Modifier un produit dans une Vente"));
+        $formulaireProducteur->ajouterComposantTab();
 
-        $formulaireModifVente->ajouterComposantLigne($formulaireModifVente->creerInputTexte('idProduit','idProduit',htmlspecialchars($_SESSION['vente']['idProduit']),0,"",''));
-        $formulaireModifVente->ajouterComposantTab();
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel("Choisissez le produit :"));
+        $formulaireProducteur->ajouterComposantTab();
 
-        $formulaireModifVente->ajouterComposantLigne($formulaireModifVente->creerLabel("Unité proposée à la vente"));
-        $formulaireModifVente->ajouterComposantTab();
 
-        $formulaireModifVente->ajouterComposantLigne($formulaireModifVente->creerInputTexte('unite', 'unite', htmlspecialchars($_SESSION['vente']['unite']), 0,'', ''));
-        $formulaireModifVente->ajouterComposantTab();
+        foreach($produits as $produits){
+            $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerRadio("produit",$produits->getNomCat(),"produit",$produits->getIdProduit()));
+            $formulaireProducteur->ajouterComposantTab();
+        }
 
-        $formulaireModifVente->ajouterComposantLigne($formulaireModifVente->creerLabel('Prix à l\'unité'));
-        $formulaireModifVente->ajouterComposantTab();
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel("Choisissez le prix de vente :"));
+        $formulaireProducteur->ajouterComposantTab();
 
-        $formulaireModifVente->ajouterComposantLigne($formulaireModifVente->creerInputTexte('prix','prix',htmlspecialchars($_SESSION['vente']['unite']),0,"",''));
-        $formulaireModifVente->ajouterComposantTab();
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputTexte('prix', 'prix', htmlspecialchars($_SESSION['user']['prix']), 0,'', ''));
+        $formulaireProducteur->ajouterComposantTab();
 
-        $formulaireModifVente->ajouterComposantLigne($formulaireModifVente->creerInputSubmit('ajoutProduitVente', 'ajoutProduitVente', "Ajouter un produit à la vente"));
-        $formulaireModifVente->ajouterComposantTab();
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel("Choisissez le nombre produits à vendre :"));
+        $formulaireProducteur->ajouterComposantTab();
 
-        $formulaireModifVente->creerFormulaire();
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputTexte('quantite', 'quantite', htmlspecialchars($_SESSION['user']['nbProd']), 0,'', ''));
+        $formulaireProducteur->ajouterComposantTab();
 
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel("Choisissez une vente :"));
+        $formulaireProducteur->ajouterComposantTab();
+
+        foreach($ventes as $ventes){
+            $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerRadio("vente",$ventes->getDateVente(),"vente",$ventes->getId()));
+            $formulaireProducteur->ajouterComposantTab();
+        }
+
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputSubmit('modifProduitVente', 'modifProduitVente', "Sauvegarder les informations"));
+        $formulaireProducteur->ajouterComposantTab();
+
+        $formulaireProducteur->creerFormulaire();
 
     }
 }
 
+require_once('vues/producteurs/vueProducteursProduits.php');
 
 
 
-
-
-require_once ('vues/producteurs/vueProducteursUneVente.php');

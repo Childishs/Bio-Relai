@@ -69,7 +69,7 @@ class ProduitDAO{
     }
 
     //proposer à la vente
-    public static function propProduitVente(ProduitDTO $produit, $idVente,$unite,$quantite,$prix){
+    public static function creerProduitVente(ProduitDTO $produit, $idVente,$unite,$quantite,$prix){
         try{
             $req= DBConnex::getInstance()->prepare ("INSERT INTO PROPOSER (idVente,idProduit,unite,quantite,prix) VALUES (?,?,?,?)");
             $req->execute(array($idVente,$produit->getIdProduit(),$unite,$quantite,$prix));

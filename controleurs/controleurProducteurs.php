@@ -70,6 +70,53 @@ if($_SESSION['user']['statut'] === 'producteurs') {
         die();
     }
 
+
+    if(isset($_POST['ajoutProdVente'])){
+        //foreach pour récupérer les infos de la categorie
+        if(!empty($_POST['nomProduit']) && !empty($_POST['idVente']) ){
+            $nomProduit = htmlspecialchars($_POST['nomProduit']);
+            $idVente = htmlspecialchars($_POST['idVente']);
+            $prix = htmlspecialchars($_POST['prix']);
+            $quantite = htmlspecialchars($_POST['quantite']);
+        }
+        $produit = new ProduitDTO();
+        $produit->setNomProduit($nomProduit);
+        $produit->setPrix($prix);
+        $produit->setQuantite($quantite);
+        $produit->setDateVente($idVente);
+
+
+        ProduitDAO::creerProduitVente($produit);
+
+        require_once('vues/producteurs/vueProducteursProduits.php');
+        die();
+    }
+    if(isset($_POST['modifProduit'])){
+        if(!empty($_POST['nomProduit']) && !empty($_POST['idVente']) ){
+            $nomProduit = htmlspecialchars($_POST['nomProduit']);
+            $idVente = htmlspecialchars($_POST['vente']);
+            $prix = htmlspecialchars($_POST['prix']);
+            $quantite = htmlspecialchars($_POST['quantite']);
+        }
+        $produit = new ProduitDTO();
+        $produit->setNomProduit($nomProduit);
+        $produit->setPrix($prix);
+        $produit->setQuantite($quantite);
+        $produit->setDateVente($idVente);
+        ProduitDAO::modifProduitVente($produit);
+
+        require_once(dispatcher::dispatch("ProducteursProduits"));
+        die();
+    }
+
+    if(isset($_POST['suppProduit'])){
+        $idProduit=htmlspecialchars($_POST('idProduit'));
+        ProduitDAO::suppProduitVente($idProduit,'idVente');
+
+        require_once('vues/producteurs/vueProducteursProduits.php');
+        die();
+    }
+
     // mise en place du form
     $formulaireProducteur = new Formulaire('post','index.php','ProducteurModif','ProducteurModif');
 

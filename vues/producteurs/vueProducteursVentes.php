@@ -7,7 +7,7 @@
 
     <section>
         <?php
-        echo "<h1 class='title1'> Bienvenu à vous ". $_SESSION['user']['nom'].", </h1>" ;
+        echo "<h1 class='title1'> Bienvenue à vous ". $_SESSION['user']['nom'].", </h1>" ;
         echo "<h3 class='title3'> Gérez toutes vos ventes </h3><br/>";
         ?>
 
@@ -23,8 +23,10 @@
             <?php
             foreach($produits as $produits) {
                 echo '<tr>';
-                echo '<td>' . $produits->getIdProduit() . '</td>';
                 echo '<td>' . $produits->getNomProduit() . '</td>';
+                echo '<td>' . $produits->getPrix() . '</td>';
+                echo '<td>' . $produits->getQuantite() . '</td>';
+                echo '<td>' . $produits->getDateVente() . '</td>';
                 echo '<td> <a class="Intlink" href="index.php?Producteurs=Produits&id='.$produits->getIdProduit().'&action=delete"> <i class="fas fa-trash"></i> </a></td>';
                 echo '<td> <a class="Intlink" href="index.php?Producteurs=Produits&id='.$produits->getIdProduit().'&action=toUpdate"> <i class="fas fa-user-edit"></i> </a></td>';
                 echo '</tr>';

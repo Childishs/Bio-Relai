@@ -7,9 +7,8 @@ class ProduitDTO{
     private $photoProduit;
     private $idCategorie;
     private $idUtilisateur;
-    private $idVente;
+    private $dateVente;
     private $prix;
-    private $unite;
     private $quantite;
 
    /* public function __construct($idProduit, $idVente, $prix, $unite, $quantite){
@@ -31,16 +30,6 @@ class ProduitDTO{
         $this->quantite = $quantite;
     }
 
-    public function getUnite()
-    {
-        return $this->unite;
-    }
-
-    public function setUnite($unite): void
-    {
-        $this->unite = $unite;
-    }
-
     public function getPrix()
     {
         return $this->prix;
@@ -51,9 +40,9 @@ class ProduitDTO{
         $this->prix = $prix;
     }
 
-    public function getIdVente()
+    public function getDateVente()
     {
-        return $this->idVente;
+        return $this->dateVente;
     }
 
     public function getIdUtilisateur()
