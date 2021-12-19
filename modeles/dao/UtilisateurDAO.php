@@ -73,7 +73,9 @@ class UtilisateurDAO {
             $req = DBConnex::getInstance()->prepare("INSERT INTO UTILISATEURS (mail,mdp,statut,nomUtilisateur,prenomUtilisateur,token) VALUES (?,?,?,?,?,?)");
             $req->execute(array($user->getMail(), $mdp, $user->getStatut(), $user->getNomUtilisateur(), $user->getPrenomUtilisateur(), $token));
 
-            $_SESSION['user'] = ['token' => $token, 'nom' => $user->getNomUtilisateur(), 'prenom' => $user->getPrenomUtilisateur(), 'statut' => $user->getStatut()];
+            if(empty($_SESSION['user'])) {
+                $_SESSION['user'] = ['token' => $token, 'nom' => $user->getNomUtilisateur(), 'prenom' => $user->getPrenomUtilisateur(), 'statut' => $user->getStatut(), 'email' => $user->getMail()];
+            }
 
 
         } catch(Exception $e) {
@@ -87,10 +89,10 @@ class UtilisateurDAO {
      * @param $statut le statut de la DB 
      * @return UtilisateurDto[]|null Selon la reception, un tableau d'objet ou null si vide 
      */
-    public function getAllByStatut(string $statut) : ?array {
+    public static function getAllByStatut(string $statut) : ?array {
         $req = DBConnex::getInstance()->prepare('SELECT * FROM UTILISATEURS WHERE statut = ?');
         $req->execute(array($statut));
-        $tous = $req->fetchAll(\PDO::FETCH_CLASS, get_class(new UtilisateurDTO));
+        $tous = $req->fetchAll(PDO::FETCH_CLASS, 'UtilisateurDTO');
         return $tous;
     }
 
@@ -104,13 +106,20 @@ class UtilisateurDAO {
     public static function update(UtilisateurDTO $user) : bool {
         try {
             // On Hash le mdp seulement si l'utilisateur le change, on va pas hasher du déjà hashé 
-            $mdp = $user->getMdp();
-            if(strlen($mdp) < 30) {
-                $mdp = password_hash($mdp, PASSWORD_DEFAULT);
-            } 
-
-            $req = DBConnex::getInstance()->prepare('UPDATE UTILISATEURS SET nomUtilisateur = ?, prenomUtilisateur = ?, mail = ?, mdp = ? WHERE token = ?');
-            $req->execute(array($user->getNomUtilisateur(), $user->getPrenomUtilisateur(), $user->getMail(), $mdp, $user->getToken()));
+            if($user->getMdp() != null) {
+                $mdp = $user->getMdp();
+                if(strlen($mdp) < 30) {
+                    $mdp = password_hash($mdp, PASSWORD_DEFAULT);
+                    
+                }
+                $req = DBConnex::getInstance()->prepare('UPDATE UTILISATEURS SET nomUtilisateur = ?, prenomUtilisateur = ?, mail = ?, mdp = ? WHERE token = ?');
+                $req->execute(array($user->getNomUtilisateur(), $user->getPrenomUtilisateur(), $user->getMail(), $mdp, $user->getToken()));
+            } else {
+                /// Si on update sans mdp (ex changement prod ou autre)
+                $req = DBConnex::getInstance()->prepare('UPDATE UTILISATEURS SET nomUtilisateur = ?, prenomUtilisateur = ?, mail = ? WHERE token = ?');
+                $req->execute(array($user->getNomUtilisateur(), $user->getPrenomUtilisateur(), $user->getMail(), $user->getToken())); 
+            }
+        
             return true;
 
         } catch(Exception $e) {
@@ -136,6 +145,22 @@ class UtilisateurDAO {
         }
     }
 
+
+    /**
+     * Permet de supprimer un utilisateur 
+     * 
+     * @param int $token - Identification de l'utilsiateur 
+     * @return bool 
+     */
+    public static function delete(string $token) : bool {
+        try {
+            $req = DBConnex::getInstance()->prepare('DELETE FROM UTILISATEURS WHERE token = ?');
+            $req->execute(array($token));
+            return true;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
 
 
 

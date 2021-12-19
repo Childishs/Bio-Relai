@@ -25,6 +25,7 @@ class Formulaire{
 	public function ajouterComposantLigne($unComposant){
 		$this->ligneComposants[] = $unComposant;
 	}
+
 	
 	public function ajouterComposantTab(){
 		$this->tabComposants[] = $this->ligneComposants;
@@ -32,7 +33,7 @@ class Formulaire{
 	}
 	
 	public function creerTitre($unLabel){
-	    $composant = "<h1>" . $unLabel . "</h1>";
+	    $composant = "<h1 id='formTitle'>" . $unLabel . "</h1>";
 	    return $composant;
 	}
 	
@@ -46,10 +47,21 @@ class Formulaire{
 		return $composant;
 	}
 	
-	public function creerRadio($unRadio, $nom, $id){
-		$composant = "<input  type ='radio' id = '" . $id . "' name = '" .$unRadio. "'/>$nom";
+	public function creerRadio($unRadio, $nom, $id, $uneValue){
+		$composant = "<input  type ='radio' value='". $uneValue . "' id = '" . $id . "' name = '" .$unRadio. "'/>$nom";
 		return $composant;
 	}
+
+	public function creerInputDate($unNom, $unId, $required = NULL, $value = NULL) {
+		$composant = "<input type='date' id='".$unId."' name='".$unNom."'value='".$value."'  ".$required." >";
+		return $composant;
+	}
+
+	public function creerInputHidden($unNom, $unId, $uneValue) {
+		$composant = "<input type = 'hidden' name = '" . $unNom . "' id = '" . $unId . "'  value = '" . $uneValue . '"';
+		return $composant;
+	}
+
 
 	public function creerInputTexte($unNom, $unId, $uneValue , $required , $placeholder , $pattern){
 		$composant = "<input type = 'text' name = '" . $unNom . "' id = '" . $unId . "' ";
@@ -63,7 +75,7 @@ class Formulaire{
 			$composant .= "required ";
 		}
 		if (!empty($pattern)){
-			$composant .= "pattern = '" . $pattern . "' ";
+			$composant .= $pattern ;
 		}
 		$composant .= "/>";
 		return $composant;
@@ -109,7 +121,8 @@ class Formulaire{
 		return "<a href='vues/visiteurs/vueConnexion.php' target='_blank'> <input type='button' value='Retour'> </a>";
 
 
-		$composant = "<input type = 'button' value= '" . $uneValue . "' onclick= '" . history.go(-1) . "'>";
+		// $composant = "<input type = 'button' value= '" . $uneValue . "' onclick= '" . history.go(-1) . "'>";
+		//
 		return $composant;
 	}
 

@@ -1,5 +1,7 @@
 <?php
-
+$menuConnexion = new Menu('btnConnexion');
+$menuConnexion->ajouterComposant($menuConnexion->creerItemLien('Connexion','connexion'));
+$leMenuConnexion = $menuConnexion->creerMenu('0','demandeConnexion');
 /*
  * Création du formulaire de connexion
  */

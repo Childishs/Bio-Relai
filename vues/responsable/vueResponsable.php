@@ -12,19 +12,33 @@
 
     <section>
         <?php 
-            echo "Bienvenu à vous Responsable ! Voici vos infos !<br/>" ;
-            echo "Votre magnfique nom de l'amour est :  " . $_SESSION['user']['nom'] . "<br/>";
-            echo "Pour modifier vos informations, cliquez ici <br/>";
-            echo "Pour accéder aux producteurs <br/>";
-            echo "Pour accéder à la gestion de vente en cours <br/>";
-            echo "Pour accéder autorisations de commandes <br/>";
-            echo "Pour accéder aux autorisations de vente <br/>";
-            echo "Ajouter de nouvelles catégories <br/>";
-            echo "Inspecter les factures (clients et producteurs) <br/>";
-            var_dump($_SESSION);
+
+            if(isset($_SESSION['message']) && !empty($_SESSION['message'])) {
+                echo htmlspecialchars($_SESSION['message']);
+                $_SESSION['message'] = "";
+            }
+
+            echo "<br/>";
+            echo "<h1 class='title1'> Bienvenu à vous ". $_SESSION['user']['nom'].", </h1>" ;
+           ?>
+
+            <h2> En qualité de responsable, vous pouvez modifier les différents éléments suivants : </h2>
+            <ul>
+                <li> Les producteurs (informations de compte) </li>
+                <li> Les catégories (ajout, modification et suppression) </li>
+                <li> La gestion des ventes (ajout, suppression, modification) </li>
+                <li> La mise en place des accords de mise en vente pour les producteurs </li>
+                <li> La mise en place des accords d'achat pour les utilisateurs </li>
+                <li> La consultation de toutes les factures </li>
+            </ul>
 
 
+            <?php 
+
+            echo " <div class='container'>";
             $formulaireResponsable->afficherFormulaire();
+            echo "</div>";
             ?>
+
     </section>
 </section>
