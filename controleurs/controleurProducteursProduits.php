@@ -7,7 +7,7 @@ $menuFermerConnexion->ajouterComposant($menuFermerConnexion->creerItemImage('dec
 $menuFermerConnexion->creerMenuImage('0','demandeDeconnexion');
 // récupérer tous les producteurs
 
-$produits = ProduitDAO::getAll($_SESSION['user']['id']);
+$commandes = ProduitDAO::getAll($_SESSION['user']['id']);
 
 $categorie=CategorieDAO::getAll();
 

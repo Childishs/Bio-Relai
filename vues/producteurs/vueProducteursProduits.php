@@ -7,7 +7,7 @@
 
     <section>
         <?php
-        echo "<h1 class='title1'> Bienvenu à vous ". $_SESSION['user']['nom'].", </h1>" ;
+        echo "<h1 class='title1'> Bienvenue à vous ". $_SESSION['user']['nom'].", </h1>" ;
         echo "<h3 class='title3'> Gérez tous vos produits ! </h3><br/>";
         ?>
 

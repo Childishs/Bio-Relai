@@ -21,7 +21,7 @@
             </tr>
 
             <?php
-            foreach($produits as $produits) {
+            foreach($commandes as $produits) {
                 echo '<tr>';
                 echo '<td>' . $produits->getNomProduit() . '</td>';
                 echo '<td>' . $produits->getPrix() . '</td>';
