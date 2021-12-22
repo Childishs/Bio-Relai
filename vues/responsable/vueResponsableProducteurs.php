@@ -12,40 +12,46 @@
 
     <section>
         <?php 
-            echo "Bienvenu à vous Responsable ! ici vous gérez les producteurs !<br/>" ;
-            echo "<br/> Voici les producteurs présents <br/>";
+            echo "<h1 class='title1'> Bienvenu à vous ". $_SESSION['user']['nom'].", </h1>" ;
+            echo "<h3 class='title3'> ici vous gérez les producteurs. </h3><br/>";
             // Faire un tableau d'infos modifiables 
            ?>
 
-           <table>
+            <h1 id="formTitle"> CONSULTER LES PRODUCTEURS </h1>
+                <table id="tableResp">
 
-            <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Email</th>
-                <th>Supprimer</th>
-                <th>Modifier</th>
-            </tr>
-           
-            <?php 
-            foreach($producteurs as $producteurs) {
-                echo '<tr>';
-                echo '<td>' . $producteurs->getNomUtilisateur() . '</td>';
-                echo '<td>' . $producteurs->getPrenomUtilisateur() . '</td>';
-                echo '<td>' . $producteurs->getMail() . '</td>';
-                echo '<td> <i class="fas fa-trash"></i> </td>';
-                echo '<td> <i class="fas fa-user-edit"></i> </td>';
-                echo '</tr>';
-            }
-        
-            ?>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Supprimer</th>
+                    <th>Modifier</th>
+                </tr>
+            
+                <?php 
+                foreach($producteurs as $producteurs) {
+                    echo '<tr>';
+                    echo '<td>' . $producteurs->getNomUtilisateur() . '</td>';
+                    echo '<td>' . $producteurs->getPrenomUtilisateur() . '</td>';
+                    echo '<td>' . $producteurs->getMail() . '</td>';
+                    echo '<td> <a href="index.php?Responsable=ResponsableProducteurs&id='.$producteurs->getToken().'&action=delete"> <i class="fas fa-trash"></i> </a></td>';
+                    echo '<td> <a href="index.php?Responsable=ResponsableProducteurs&id='.$producteurs->getToken().'&action=toUpdate"> <i class="fas fa-user-edit"></i> </a></td>';
+                    echo '</tr>';
+                }
+            
+                ?>
 
-            </table>
+                </table>
 
-
+                <div class="container">
             <?php 
             $formulaireResponsable->afficherFormulaire();
             ?>
+                </div>
+            <script>
+                let champ = document.getElementById("id");
+                champ.hidden = true;
+            </script>
 
     </section>
 </section>

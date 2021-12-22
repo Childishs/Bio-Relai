@@ -1,6 +1,8 @@
 <?php 
 
-class  VentesDAO {
+
+class VentesDAO {
+
 
     /**
      * Permet de récupérer toutes les ventes 
@@ -89,6 +91,4 @@ class  VentesDAO {
             die($e->getMessage());
         }
     }
-
-
 }

@@ -4,7 +4,6 @@ class CategorieDAO {
 
     /**
      * Permet de récupérer une cat avec son id
-     *
      * @param int $id - id pour troouver une catégorie
      * @return CategorieDTO|null - S'il trouve la cat ou non
      */
@@ -61,14 +60,14 @@ class CategorieDAO {
             return true;
         } catch (Exception $e) {
             die($e->getMessage());
-        }
+
+        } 
     }
 
 
 
     /**
-     * Permet d'update une catégotie
-     *
+     * Permet d'update une catégorie 
      * @param CategorieDTO
      * @return bool
      */
