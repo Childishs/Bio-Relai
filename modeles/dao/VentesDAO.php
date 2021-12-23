@@ -1,6 +1,8 @@
 <?php 
 
+
 class VentesDAO {
+
 
     /**
      * Permet de récupérer toutes les ventes 

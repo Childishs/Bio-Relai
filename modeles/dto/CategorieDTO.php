@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 class CategorieDTO {
-    private int $idCategorie;
-    private string $nomCategorie;
+    private $idCategorie;
+    private $nomCategorie;
 
     public function getId() {
         return $this->idCategorie;

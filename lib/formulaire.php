@@ -1,5 +1,6 @@
 <?php
 class Formulaire{
+
 	private $method;
 	private $action;
 	private $nom;
@@ -154,5 +155,5 @@ class Formulaire{
 	public function afficherFormulaire(){
 		echo $this->formulaireToPrint ;
 	}
-	
+
 }

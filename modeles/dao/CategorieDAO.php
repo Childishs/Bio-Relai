@@ -1,11 +1,10 @@
-<?php 
+<?php
 
 class CategorieDAO {
 
-/**
+    /**
      * Permet de récupérer une cat avec son id
-     * 
-     * @param int $id - id pour troouver une catégorie 
+     * @param int $id - id pour troouver une catégorie
      * @return CategorieDTO|null - S'il trouve la cat ou non
      */
     public static function getOne(int $id) : ?CategorieDTO {
@@ -21,8 +20,8 @@ class CategorieDAO {
     }
 
     /**
-     * Permet de récupérer toutes les catégories 
-     * 
+     * Permet de récupérer toutes les catégories
+     *
      * @return CategorieDTO[]|null - Array d'objet ou null s'il n'y a rien
      */
     public static function getAll() : ?array {
@@ -39,10 +38,10 @@ class CategorieDAO {
 
 
     /**
-     * Permet de créer une catégorie et l'ajouter en base de données 
-     * 
-     * @param CategorieDTO $cat - Un objet catégorie 
-     * @return bool - true/false selon 
+     * Permet de créer une catégorie et l'ajouter en base de données
+     *
+     * @param CategorieDTO $cat - Un objet catégorie
+     * @return bool - true/false selon
      */
     public static function create(CategorieDTO $cat) : bool {
         try {
@@ -61,14 +60,14 @@ class CategorieDAO {
             return true;
         } catch (Exception $e) {
             die($e->getMessage());
+
         } 
     }
 
 
 
     /**
-     * Permet d'update une catégotie 
-     * 
+     * Permet d'update une catégorie 
      * @param CategorieDTO
      * @return bool
      */
