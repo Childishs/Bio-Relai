@@ -1,5 +1,6 @@
 <?php
 class Formulaire{
+
 	private $method;
 	private $action;
 	private $nom;
@@ -25,6 +26,7 @@ class Formulaire{
 	public function ajouterComposantLigne($unComposant){
 		$this->ligneComposants[] = $unComposant;
 	}
+
 	
 	public function ajouterComposantTab(){
 		$this->tabComposants[] = $this->ligneComposants;
@@ -32,7 +34,7 @@ class Formulaire{
 	}
 	
 	public function creerTitre($unLabel){
-	    $composant = "<h1>" . $unLabel . "</h1>";
+	    $composant = "<h1 id='formTitle'>" . $unLabel . "</h1>";
 	    return $composant;
 	}
 	
@@ -46,10 +48,26 @@ class Formulaire{
 		return $composant;
 	}
 	
-	public function creerRadio($unRadio, $nom, $id){
-		$composant = "<input  type ='radio' id = '" . $id . "' name = '" .$unRadio. "'/>$nom";
+	public function creerRadio($unRadio, $nom, $id, $uneValue){
+		$composant = "<input  type ='radio' value='". $uneValue . "' id = '" . $id . "' name = '" .$unRadio. "'/>$nom";
 		return $composant;
 	}
+
+	public function creerInputDate($unNom, $unId, $required = NULL, $value = NULL) {
+		$composant = "<input type='date' id='".$unId."' name='".$unNom."'value='".$value."'  ".$required." >";
+		return $composant;
+	}
+
+	public function creerInputHidden($unNom, $unId, $uneValue) {
+		$composant = "<input type = 'hidden' name = '" . $unNom . "' id = '" . $unId . "'  value = '" . $uneValue . '"';
+		return $composant;
+	}
+
+	public function creerInputPhoto($unNom, $unId) {
+		$composant = '<input type="file" name="'.$unNom.'" id="'.$unId.'" accept="image/png, image/jpeg">';
+		return $composant;
+	}
+
 
 	public function creerInputTexte($unNom, $unId, $uneValue , $required , $placeholder , $pattern){
 		$composant = "<input type = 'text' name = '" . $unNom . "' id = '" . $unId . "' ";
@@ -63,19 +81,19 @@ class Formulaire{
 			$composant .= "required ";
 		}
 		if (!empty($pattern)){
-			$composant .= "pattern = '" . $pattern . "' ";
+			$composant .= $pattern ;
 		}
 		$composant .= "/>";
 		return $composant;
 	}
 	
 	
-	public function creerInputMdp($unNom, $unId,  $required , $placeholder , $pattern){
+	public function creerInputMdp($unNom, $unId,  $required = NULL, $placeholder , $pattern){
 		$composant = "<input type = 'password' name = '" . $unNom . "' id = '" . $unId . "' ";
 		if (!empty($placeholder)){
 			$composant .= "placeholder = '" . $placeholder . "' ";
 		}
-		if ( $required = 1){
+		if ( $required === 1){
 			$composant .= "required ";
 		}
 		if (!empty($pattern)){
@@ -107,10 +125,6 @@ class Formulaire{
 
 	public function creerInputBoutonRetour($uneValue){
 		return "<a href='vues/visiteurs/vueConnexion.php' target='_blank'> <input type='button' value='Retour'> </a>";
-
-
-		$composant = "<input type = 'button' value= '" . $uneValue . "' onclick= '" . history.go(-1) . "'>";
-		return $composant;
 	}
 
 	public function creerInputImage($unNom, $unId, $uneSource){
@@ -121,7 +135,7 @@ class Formulaire{
 	
 	
 	public function creerFormulaire(){
-		$this->formulaireToPrint = "<form method = '" .  $this->method . "' ";
+		$this->formulaireToPrint = "<form enctype='multipart/form-data' method = '" .  $this->method . "' ";
 		$this->formulaireToPrint .= "action = '" .  $this->action . "' ";
 		$this->formulaireToPrint .= "name = '" .  $this->nom . "' ";
 		$this->formulaireToPrint .= "class = '" .  $this->style . "' >";
@@ -141,5 +155,5 @@ class Formulaire{
 	public function afficherFormulaire(){
 		echo $this->formulaireToPrint ;
 	}
-	
+
 }

@@ -68,10 +68,12 @@ class Liste{
     
     
     
-    public function unProduit(Produit $unProduit){
+    public function unProduit(ProduitDTO $unProduit){
         $item = "<div class = 'item'>";
+            $item .="<div class = 'id' a href='vues/Producteurs/ProducteursUnProduit'>";
+            $item .=$unProduit->getIdProduit();
             $item .= "<div class = 'photo'>";
-                    $item .="<img src= 'images/produits/";
+                    $item .="<img src= ";
                     $item .= $unProduit->getPhotoProduit();
                     $item .="'/>";
             $item .= "</div>";
@@ -80,7 +82,7 @@ class Liste{
                     $item .= $unProduit->getNomProduit();
                 $item .= "</div>";
                 $item .= "<div class = 'descriptif'>";
-                    $item .= $unProduit->getDescriptifProduit();
+                    $item .= $unProduit->getDescriptionProduit();
                 $item .= "</div>";
              $item .= "</div>";
         $item .= "</div>";
@@ -99,7 +101,7 @@ class Liste{
                     $item .= $unProduit->getNomProduit();
                 $item .= "</div>";
                 $item .= "<div class = 'descriptif'>";
-                    $item .= $unProduit->getDescriptifProduit();
+                    $item .= $unProduit->getDescriptionProduit();
                 $item .= "</div>";
                 $item .= "<div class = 'prix'>";
                     $item .= $unProduit->getPrix() . '&nbsp;&euro;';
