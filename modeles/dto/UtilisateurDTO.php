@@ -1,12 +1,13 @@
-<?php 
+<?php
 
 /*
-UtilisateurDTO : 
+UtilisateurDTO :
     - Infos BDD
-    - Accesseurs principaux 
+    - Accesseurs principaux
 */
 
 class UtilisateurDTO {
+
 
     protected  $idUtilisateur;
     protected  $mail;
@@ -16,13 +17,14 @@ class UtilisateurDTO {
     protected  $prenomUtilisateur;
     protected  $token;
 
-    // Accesseurs 
 
-    public function getId() {
+    // Accesseurs
+
+    public function getIdUtilisateur() {
         return $this->idUtilisateur;
     }
 
-    public function setId(int $id) {
+    public function setIdUtilisateur(int $id) {
         $this->idUtilisateur = $id;
     }
 

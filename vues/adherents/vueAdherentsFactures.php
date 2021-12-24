@@ -9,8 +9,8 @@
 
     <section>
         <?php
-              echo "C'est la page adherent achat";
 
+            echo "C'est la page adherent factures";
             ?>
     </section>
 </section>

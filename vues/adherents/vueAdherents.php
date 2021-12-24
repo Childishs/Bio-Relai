@@ -10,11 +10,10 @@
     <section>
         <?php // echo $laListeProducteurs;
 
-            echo "Bienvenue à vous adhérent ! Voici vos infos !";
-            //var_dump($_SESSION['user']);
-           $formulaireMonCompte->afficherFormulaire();
-           $formulaireSupMonCompte->afficherFormulaire();
-           
+            echo "Bienvenue à vous adhérent !";
+
+           //$formulaireMonCompte->afficherFormulaire();
+           // echo "Votre magnfique nom de l'amour est :  " . $Utilisateur->getNom();
             ?>
     </section>
 </section>
