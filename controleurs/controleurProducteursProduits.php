@@ -7,9 +7,12 @@ $menuFermerConnexion->ajouterComposant($menuFermerConnexion->creerItemImage('dec
 $menuFermerConnexion->creerMenuImage('0','demandeDeconnexion');
 // récupérer tous les producteurs
 
-$commandes = ProduitDAO::getAll($_SESSION['user']['id']);
+// $commandes = ProduitDAO::getAll($_SESSION['user']['id']);
 
 $categorie=CategorieDAO::getAll();
+
+$produits = ProduitDAO::getAll($_SESSION['user']['id']);
+
 
 
 
@@ -34,7 +37,7 @@ $formulaireProducteur->ajouterComposantTab();
 $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel("Photo"));
 $formulaireProducteur->ajouterComposantTab();
 
-$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputTexte('photo', 'photo', "", 0,'', 'Photo'));
+$formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputPhoto('photo', 'photo'));
 $formulaireProducteur->ajouterComposantTab();
 
 $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel('Catégorie'));
@@ -58,7 +61,8 @@ if(isset($_GET['id']) && isset($_GET['action'])) {
     } else if ($_GET['action'] === "toUpdate") {
 
         $prod = ProduitDAO::getOne(htmlspecialchars($_GET['id']));
-
+        $_SESSION['productId'] = $_GET['id'];
+        $categorie=CategorieDAO::getAll();
 
         //Création d'un formulaire pour la modification d'un produit
         $formulaireProducteur = new Formulaire('post', 'index.php', 'modifProduit', 'modifProduit');
@@ -81,14 +85,20 @@ if(isset($_GET['id']) && isset($_GET['action'])) {
         $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel("Photo"));
         $formulaireProducteur->ajouterComposantTab();
 
-        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputTexte('photo', 'photo', $prod->getPhotoProduit(), 0, '', ''));
+        
+        $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputPhoto('photo', 'photo'));
         $formulaireProducteur->ajouterComposantTab();
+
 
         $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerLabel('Catégorie'));
         $formulaireProducteur->ajouterComposantTab();
 
         foreach($categorie as $categorie){
-            $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerRadio("categorie",$categorie->getNomCat(),"categorie",$categorie->getId()));
+            if($categorie->getId() === $prod->getIdCategorie()) {
+                $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerRadio("categorie",$categorie->getNomCat(),"categorie",$categorie->getId(), "checked"));
+            } else {
+                $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerRadio("categorie",$categorie->getNomCat(),"categorie",$categorie->getId()));
+            }
             $formulaireProducteur->ajouterComposantTab();
         }
         $formulaireProducteur->ajouterComposantLigne($formulaireProducteur->creerInputSubmit('modifProduit', 'modifProduit', "Sauvegarder les informations"));

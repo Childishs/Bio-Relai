@@ -118,7 +118,6 @@ if(isset($_GET['id']) && isset($_GET['action'])) {
         $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputTexte('email', 'email', $producteur->getMail(), 1, '', ''));
         $formulaireResponsable->ajouterComposantTab();
 
-
         $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel("Adresse"));
         $formulaireResponsable->ajouterComposantTab();
 
