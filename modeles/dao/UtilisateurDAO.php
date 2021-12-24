@@ -44,6 +44,8 @@ class UtilisateurDAO {
         }
     }
 
+  
+
     /**
      * Fonction permettant de s'inscrire -> Ajout en BDD d'un utilisateur 
      * 
@@ -72,6 +74,9 @@ class UtilisateurDAO {
             // A terminer
             $req = DBConnex::getInstance()->prepare("INSERT INTO UTILISATEURS (mail,mdp,statut,nomUtilisateur,prenomUtilisateur,token) VALUES (?,?,?,?,?,?)");
             $req->execute(array($user->getMail(), $mdp, $user->getStatut(), $user->getNomUtilisateur(), $user->getPrenomUtilisateur(), $token));
+
+            $id = DBConnex::getInstance()->lastInsertId();
+            $_SESSION['transac'] = $id;
 
             if(empty($_SESSION['user'])) {
                 $_SESSION['user'] = ['token' => $token, 'nom' => $user->getNomUtilisateur(), 'prenom' => $user->getPrenomUtilisateur(), 'statut' => $user->getStatut(), 'email' => $user->getMail()];
@@ -161,8 +166,6 @@ class UtilisateurDAO {
             die($e->getMessage());
         }
     }
-
-
 
 
 }

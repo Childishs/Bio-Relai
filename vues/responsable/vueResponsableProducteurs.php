@@ -24,6 +24,11 @@
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Email</th>
+                    <th>Adresse</th>
+                    <th>Commune</th>
+                    <th>Code Postale</th>
+                    <th>Descriptif </th>
+                    <th>Photo du producteur </th>
                     <th>Supprimer</th>
                     <th>Modifier</th>
                 </tr>
@@ -34,6 +39,11 @@
                     echo '<td>' . $producteurs->getNomUtilisateur() . '</td>';
                     echo '<td>' . $producteurs->getPrenomUtilisateur() . '</td>';
                     echo '<td>' . $producteurs->getMail() . '</td>';
+                    echo '<td>' . $producteurs->getAdresseProducteur() . '</td>';
+                    echo '<td>' . $producteurs->getCommuneProducteur() . '</td>';
+                    echo '<td>' . $producteurs->getCodePostalProducteur() . '</td>';
+                    echo '<td>' . $producteurs->getDescriptifProducteur() . '</td>';
+                    echo '<td> <img src="' . $producteurs->getPhotoProducteur() . '" width=100 height=100></td>';
                     echo '<td> <a href="index.php?Responsable=ResponsableProducteurs&id='.$producteurs->getToken().'&action=delete"> <i class="fas fa-trash"></i> </a></td>';
                     echo '<td> <a href="index.php?Responsable=ResponsableProducteurs&id='.$producteurs->getToken().'&action=toUpdate"> <i class="fas fa-user-edit"></i> </a></td>';
                     echo '</tr>';

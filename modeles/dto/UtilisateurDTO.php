@@ -8,13 +8,13 @@ UtilisateurDTO :
 
 class UtilisateurDTO {
 
-    private  $idUtilisateur;
-    private  $mail;
-    private  $mdp;
-    private  $statut;
-    private  $nomUtilisateur;
-    private  $prenomUtilisateur;
-    private  $token;
+    protected  $idUtilisateur;
+    protected  $mail;
+    protected  $mdp;
+    protected  $statut;
+    protected  $nomUtilisateur;
+    protected  $prenomUtilisateur;
+    protected  $token;
 
     // Accesseurs 
 

@@ -63,6 +63,11 @@ class Formulaire{
 		return $composant;
 	}
 
+	public function creerInputPhoto($unNom, $unId) {
+		$composant = '<input type="file" name="'.$unNom.'" id="'.$unId.'" accept="image/png, image/jpeg">';
+		return $composant;
+	}
+
 
 	public function creerInputTexte($unNom, $unId, $uneValue , $required , $placeholder , $pattern){
 		$composant = "<input type = 'text' name = '" . $unNom . "' id = '" . $unId . "' ";
@@ -120,11 +125,6 @@ class Formulaire{
 
 	public function creerInputBoutonRetour($uneValue){
 		return "<a href='vues/visiteurs/vueConnexion.php' target='_blank'> <input type='button' value='Retour'> </a>";
-
-
-		// $composant = "<input type = 'button' value= '" . $uneValue . "' onclick= '" . history.go(-1) . "'>";
-		//
-		return $composant;
 	}
 
 	public function creerInputImage($unNom, $unId, $uneSource){
@@ -135,7 +135,7 @@ class Formulaire{
 	
 	
 	public function creerFormulaire(){
-		$this->formulaireToPrint = "<form method = '" .  $this->method . "' ";
+		$this->formulaireToPrint = "<form enctype='multipart/form-data' method = '" .  $this->method . "' ";
 		$this->formulaireToPrint .= "action = '" .  $this->action . "' ";
 		$this->formulaireToPrint .= "name = '" .  $this->nom . "' ";
 		$this->formulaireToPrint .= "class = '" .  $this->style . "' >";

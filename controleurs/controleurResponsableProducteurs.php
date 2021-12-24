@@ -1,17 +1,12 @@
 <?php 
 
 
-
     $menuFermerConnexion = new Menu('fermerConnexion');
     $menuFermerConnexion->ajouterComposant($menuFermerConnexion->creerItemImage('deconnexion','fermer',''));
     $menuFermerConnexion->creerMenuImage('0','demandeDeconnexion');
 // récupérer tous les producteurs 
 
-$producteurs = UtilisateurDAO::getAllByStatut('producteurs');
-
-// TODO : 
-// formulaire suppression
-// formulaire update
+$producteurs = ProducteurDAO::getAllProducteurs();
 
 
 // Formulaire d'inscription producteur 
@@ -44,6 +39,40 @@ $formulaireResponsable->ajouterComposantTab();
 $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputMdp('mdp','mdp',1,"**********",''));
 $formulaireResponsable->ajouterComposantTab();
 
+
+$formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel("Adresse"));
+$formulaireResponsable->ajouterComposantTab();
+
+$formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputTexte('adresse', 'adresse', '', 1,'Adresse du producteur', ''));
+$formulaireResponsable->ajouterComposantTab();
+
+$formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel("Commune"));
+$formulaireResponsable->ajouterComposantTab();
+
+$formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputTexte('commune', 'commune', '', 1,'Commune du producteur', ''));
+$formulaireResponsable->ajouterComposantTab();
+
+
+$formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel("Code Postal"));
+$formulaireResponsable->ajouterComposantTab();
+
+$formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputTexte('codePostal', 'codePostal', '', 1,'Code postal du producteur', ''));
+$formulaireResponsable->ajouterComposantTab();
+
+
+$formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel("Descriptif"));
+$formulaireResponsable->ajouterComposantTab();
+
+$formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputTexte('descriptif', 'descriptif', '', 1,'Descriptif du producteur', ''));
+$formulaireResponsable->ajouterComposantTab();
+
+$formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel("Photo producteur"));
+$formulaireResponsable->ajouterComposantTab();
+
+$formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputPhoto('photo', 'photo'));
+$formulaireResponsable->ajouterComposantTab();
+
+
 $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputSubmit('ajoutProd','ajoutProd',"Sauvegarder les informations"));
 $formulaireResponsable->ajouterComposantTab();
 
@@ -58,7 +87,7 @@ if(isset($_GET['id']) && isset($_GET['action'])) {
     }
     else if($_GET['action'] === "toUpdate") {
 
-        $producteur = UtilisateurDAO::getOne(htmlspecialchars($_GET['id']));
+        $producteur = ProducteurDAO::getOneProducteurs(htmlspecialchars($_GET['id']));
 
         $formulaireResponsable = new Formulaire('post','index.php','modifProd','modifProd');
     
@@ -87,6 +116,39 @@ if(isset($_GET['id']) && isset($_GET['action'])) {
         $formulaireResponsable->ajouterComposantTab();
 
         $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputTexte('email', 'email', $producteur->getMail(), 1, '', ''));
+        $formulaireResponsable->ajouterComposantTab();
+
+
+        $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel("Adresse"));
+        $formulaireResponsable->ajouterComposantTab();
+
+        $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputTexte('adresse', 'adresse', $producteur->getAdresseProducteur(), 1,'Adresse du producteur', ''));
+        $formulaireResponsable->ajouterComposantTab();
+
+        $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel("Commune"));
+        $formulaireResponsable->ajouterComposantTab();
+
+        $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputTexte('commune', 'commune', $producteur->getCommuneProducteur(), 1,'Commune du producteur', ''));
+        $formulaireResponsable->ajouterComposantTab();
+
+
+        $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel("Code Postal"));
+        $formulaireResponsable->ajouterComposantTab();
+
+        $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputTexte('codePostal', 'codePostal', $producteur->getCodePostalProducteur(), 1,'Code postal du producteur', ''));
+        $formulaireResponsable->ajouterComposantTab();
+
+
+        $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel("Descriptif"));
+        $formulaireResponsable->ajouterComposantTab();
+
+        $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputTexte('descriptif', 'descriptif', $producteur->getDescriptifProducteur(), 1,'Descriptif du producteur', ''));
+        $formulaireResponsable->ajouterComposantTab();
+
+        $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel("Photo producteur"));
+        $formulaireResponsable->ajouterComposantTab();
+
+        $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputPhoto('photo', 'photo'));
         $formulaireResponsable->ajouterComposantTab();
 
 

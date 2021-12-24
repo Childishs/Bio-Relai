@@ -86,22 +86,148 @@ if($_SESSION['user']['statut'] === "responsable") {
   
 
     if(isset($_POST['modifProd'])) {
-        if(!empty($_POST['id']) && !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['email'])) {
+        if(!empty($_POST['id']) && !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['email']) && !empty($_POST['adresse']) && !empty($_POST['commune']) && !empty($_POST['codePostal']) && !empty($_POST['descriptif'])) {
             $token = $_POST['id'];
             // if($_SESSION['tokenAdMod'] ==  $token) {
                 $nom = htmlspecialchars($_POST['nom']); 
                 $prenom = htmlspecialchars($_POST['prenom']); 
                 $email = htmlspecialchars($_POST['email']); 
+                // prod 
+                $adresse = htmlspecialchars($_POST['adresse']); 
+                $commune = htmlspecialchars($_POST['commune']); 
+                $codePostal = htmlspecialchars($_POST['codePostal']); 
+                $descriptif = htmlspecialchars($_POST['descriptif']); 
+
+               
+            // ici on vérifie que l'envoie n'a pas eu d'erreur
+            if(isset($_FILES['photo']) && !empty($_FILES['photo'])) {
+
+                // On vérifie la taille du fichier
+                if($_FILES['photo']['size'] <= 20000000){
+                
+                // On récupère les infos dans un arrya (notament l'extension)
+                    $informations = pathinfo($_FILES['photo']['name']);
+                
+                // qu'on enregistre dans une var
+                    $extensionFichier = $informations['extension'];
+                
+                // On créer une variable comprenant tous les extensions acceptées
+                    $extensionAutorisee = array('png','jpg','gif','JPEG','pdf','svg');
+                
+                // On vérifie si dans l'array d'extension autorisé se trouve l'exention du fichier
+                    if(in_array($extensionFichier, $extensionAutorisee)) {
+                
+                    // Si tout est bon, alors on envoie
+                    // Ne pas oubliez de concatener le point pour l'ajout de l'extension
+                    $addresse = 'images/'.time().rand().'.'.$extensionFichier;
+                
+                    // avec cette fonction on bouge le fichier avec son nom temporaire à l'adresse de fin (avec son nom de fin)
+                    move_uploaded_file($_FILES['photo']['tmp_name'], $addresse);
+                
+                    $photo = $addresse;
+
+                    }}}
+
+
                 $prod = new UtilisateurDTO();
                 $prod->setToken($token);
                 $prod->setNomUtilisateur($nom);
                 $prod->setPrenomUtilisateur($prenom);
                 $prod->setmail($email);
-                UtilisateurDAO::update($prod);
+                UtilisateurDAO::update($prod); 
+
+                // UPdate producteur 
+                $producteur = new ProducteursDTO();
+                $producteur->setAdresseProducteur($adresse);
+                $producteur->setCodePostalProducteur($codePostal);
+                $producteur->setCommuneProducteur($commune);
+                $producteur->setDescriptifProducteur($descriptif);
+                $producteur->setPhotoProducteur($photo);
+
+                // Recup Id pour updateProducteur
+                $re = UtilisateurDAO::getOne($token);
+                $id = $re->getId();
+
+                ProducteurDAO::update($producteur, $id);
+                
                 require_once(dispatcher::dispatch('ResponsableProducteurs'));
                 $_SESSION['message'] = "Modification prise en compte";
                 die();
             //}
+        }
+    }
+
+    if(isset($_POST['ajoutProd'])) {
+        // Création d'un producteur 
+        if(!empty($_POST['mdp']) && !empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['email']) && !empty($_POST['adresse']) && !empty($_POST['commune']) && !empty($_POST['codePostal']) && !empty($_POST['descriptif'])) {
+            $login = htmlspecialchars($_POST['email']);
+            $mdp = htmlspecialchars($_POST['mdp']);
+            $nom = htmlspecialchars($_POST['nom']);
+            $prenom = htmlspecialchars($_POST['prenom']);
+            // Cote prod 
+            $adresse = htmlspecialchars($_POST['adresse']); 
+            $commune = htmlspecialchars($_POST['commune']); 
+            $codePostal = htmlspecialchars($_POST['codePostal']); 
+            $descriptif = htmlspecialchars($_POST['descriptif']);
+            
+
+            // ici on vérifie que l'envoie n'a pas eu d'erreur
+            if(isset($_FILES['photo'])) {
+
+                // On vérifie la taille du fichier
+                if($_FILES['photo']['size'] <= 20000000){
+                
+                // On récupère les infos dans un arrya (notament l'extension)
+                    $informations = pathinfo($_FILES['photo']['name']);
+                
+                // qu'on enregistre dans une var
+                    $extensionFichier = $informations['extension'];
+                
+                // On créer une variable comprenant tous les extensions acceptées
+                    $extensionAutorisee = array('png','jpg','gif','JPEG','pdf','svg');
+                
+                // On vérifie si dans l'array d'extension autorisé se trouve l'exention du fichier
+                    if(in_array($extensionFichier, $extensionAutorisee)) {
+                
+                    // Si tout est bon, alors on envoie
+                    // Ne pas oubliez de concatener le point pour l'ajout de l'extension
+                    $addresse = 'images/'.time().rand().'.'.$extensionFichier;
+                
+                    // avec cette fonction on bouge le fichier avec son nom temporaire à l'adresse de fin (avec son nom de fin)
+                    move_uploaded_file($_FILES['photo']['tmp_name'], $addresse);
+                
+                    $photo = $addresse;
+
+                    }else {
+                        $photo = "https://images.pexels.com/photos/96715/pexels-photo-96715.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500";
+                    }}else {
+                        $photo = "https://images.pexels.com/photos/96715/pexels-photo-96715.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500";
+                    }} else {
+                        $photo = "https://images.pexels.com/photos/96715/pexels-photo-96715.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500";
+                    }
+
+    
+            //ajout des informations le UtilisateurDTO créé
+            $Utilisateur = new UtilisateurDTO();
+            $Utilisateur->setmail($login);
+            $Utilisateur->setMdp($mdp);
+            $Utilisateur->setNomUtilisateur($nom);
+            $Utilisateur->setPrenomUtilisateur($prenom);
+            $Utilisateur->setStatut('producteurs');
+
+            UtilisateurDAO::inscription($Utilisateur);
+            // Ajout prod 
+            $producteur = new ProducteursDTO();
+            $producteur->setAdresseProducteur($adresse);
+            $producteur->setCodePostalProducteur($codePostal);
+            $producteur->setCommuneProducteur($commune);
+            $producteur->setDescriptifProducteur($descriptif);
+            $producteur->setPhotoProducteur($photo);
+            //a voir
+            ProducteurDAO::inscription($producteur, $_SESSION['transac']);
+
+            require_once(dispatcher::dispatch(('ResponsableProducteurs')));
+            die(); 
         }
     }
 
@@ -136,29 +262,7 @@ if($_SESSION['user']['statut'] === "responsable") {
     }
 
 
-    if(isset($_POST['ajoutProd'])) {
-        // Création d'un producteur 
-        if(!empty($_POST['mdp']) && !empty($_POST['email']) && !empty($_POST['nom']) && !empty($_POST['prenom'])){
-            $login = htmlspecialchars($_POST['email']);
-            $mdp = htmlspecialchars($_POST['mdp']);
-            $nom = htmlspecialchars($_POST['nom']);
-            $prenom = htmlspecialchars($_POST['prenom']);
-    
-            //ajout des informations le UtilisateurDTO créé
-            $Utilisateur = new UtilisateurDTO();
-            $Utilisateur->setmail($login);
-            $Utilisateur->setMdp($mdp);
-            $Utilisateur->setNomUtilisateur($nom);
-            $Utilisateur->setPrenomUtilisateur($prenom);
-            $Utilisateur->setStatut('producteurs');
-    
-            //a voir
-            UtilisateurDAO::inscription($Utilisateur);
-            $_SESSION['message'] = "DAMN DANIEL IS THAT A NEW USER ? hotsmiley ";
-            require_once(dispatcher::dispatch(('ResponsableProducteurs')));
-            die(); 
-        }
-    }
+  
 
     if(isset($_POST['ajoutCat'])) {
         // Création d'un producteur 

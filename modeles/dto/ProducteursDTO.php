@@ -1,17 +1,17 @@
 <?php
 //voir héritage possible avec fetch class
-class ProducteursDTO {
+class ProducteursDTO extends UtilisateurDTO {
+
     private $idProudcteur;
     private $adresseProducteur;
     private $communeProducteur;
     private $codePostalProducteur;
     private $descriptifProducteur;
     private $photoProducteur;
-    private $mail;
-    private $mdp;
-    private $statut;
-    private $nomUtilisateur;
-    private $prenomUtilisateur;
+    
+    public function setPhotoProducteur($photoProducteur) {
+        $this->photoProducteur = $photoProducteur;
+    }
 
     public function getAdresseProducteur()
     {
