@@ -45,6 +45,9 @@ class ProduitDTO{
         return $this->dateVente;
     }
 
+    public function setIdUtilisateur($data) {
+        $this->idUtilisateur = $data;
+    }
 
 
     public function setDateVente($dateVente): void
@@ -108,10 +111,7 @@ class ProduitDTO{
         $this->idProduit = $idProduit;
     }
 
-    public function getIdProducteur()
-    {
-        return $this->idProducteur;
-    }
+    
 
 
 
