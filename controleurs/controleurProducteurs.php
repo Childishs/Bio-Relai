@@ -62,11 +62,11 @@ if($_SESSION['user']['statut'] === 'producteurs') {
                 $photo = $addresse;
 
                 } else {
-                    $photo = "https://images.pexels.com/photos/1656666/pexels-photo-1656666.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+                    $photo = "images/xl.jpeg";
                 }}else {
-                    $photo = "https://images.pexels.com/photos/1656666/pexels-photo-1656666.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+                    $photo = "images/xl.jpeg";
                 }}else {
-                    $photo = "https://images.pexels.com/photos/1656666/pexels-photo-1656666.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+                    $photo = "images/xl.jpeg";
                 }
 
         
@@ -233,7 +233,7 @@ if($_SESSION['user']['statut'] === 'producteurs') {
 
                 // Recup Id pour updateProducteur
                 $re = UtilisateurDAO::getOne($token);
-                $id = $re->getId();
+                $id = $re->getIdUtilisateur();
 
                 ProducteurDAO::update($producteur, $id);
                 

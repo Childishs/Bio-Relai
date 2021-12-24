@@ -33,7 +33,7 @@ class UtilisateurDAO {
 
             if (password_verify($mdp, $utilisateur->getMdp())) {
 
-                $_SESSION['user'] = ['id' =>$utilisateur->getId(),'token' => $utilisateur->getToken(), 'nom' => $utilisateur->getNomUtilisateur(), 'prenom' => $utilisateur->getPrenomUtilisateur(), 'statut' => $utilisateur->getStatut(), 'email' => $utilisateur->getMail()];
+                $_SESSION['user'] = ['id' =>$utilisateur->getIdUtilisateur(),'token' => $utilisateur->getToken(), 'nom' => $utilisateur->getNomUtilisateur(), 'prenom' => $utilisateur->getPrenomUtilisateur(), 'statut' => $utilisateur->getStatut(), 'email' => $utilisateur->getMail()];
 
                 $_SESSION['AGENT'] = $_SERVER['HTTP_USER_AGENT'];
                 $_SESSION['TOKEN'] = $utilisateur->getToken();

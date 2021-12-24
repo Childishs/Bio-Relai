@@ -109,7 +109,7 @@ if($_SESSION['user']['statut'] === "responsable") {
                     $informations = pathinfo($_FILES['photo']['name']);
                 
                 // qu'on enregistre dans une var
-                    $extensionFichier = $informations['extension'];
+                    @$extensionFichier = $informations['extension'];
                 
                 // On créer une variable comprenant tous les extensions acceptées
                     $extensionAutorisee = array('png','jpg','gif','JPEG','pdf','svg');
@@ -142,11 +142,11 @@ if($_SESSION['user']['statut'] === "responsable") {
                 $producteur->setCodePostalProducteur($codePostal);
                 $producteur->setCommuneProducteur($commune);
                 $producteur->setDescriptifProducteur($descriptif);
-                $producteur->setPhotoProducteur($photo);
+                @$producteur->setPhotoProducteur($photo);
 
                 // Recup Id pour updateProducteur
                 $re = UtilisateurDAO::getOne($token);
-                $id = $re->getId();
+                $id = $re->getIdUtilisateur();
 
                 ProducteurDAO::update($producteur, $id);
                 
@@ -300,9 +300,7 @@ if($_SESSION['user']['statut'] === "responsable") {
             $nom != null ? $Utilisateur->setNomUtilisateur($nom) : $Utilisateur->setNomUtilisateur($UtilisateurActif->getNomUtilisateur());
             $prenom != null ? $Utilisateur->setPrenomUtilisateur($prenom) : $Utilisateur->setPrenomUtilisateur($UtilisateurActif->getPrenomUtilisateur());
             $Utilisateur->setToken($_SESSION['user']['token']);
-    
-           // var_dump($UtilisateurActif);
-    
+        
         UtilisateurDAO::update($Utilisateur);
         $_SESSION['message'] = "Vos modifications ont bien été prises en compte";
     
@@ -330,12 +328,6 @@ if($_SESSION['user']['statut'] === "responsable") {
         $formulaireResponsable->ajouterComposantTab();
     
         $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputTexte('email', 'email', htmlspecialchars($_SESSION['user']['email']), 0,'', ''));
-        $formulaireResponsable->ajouterComposantTab();
-    
-        $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel('Ancien mot de Passe :'));
-        $formulaireResponsable->ajouterComposantTab();
-    
-        $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerInputMdp('mdp','mdp',0,"**********",''));
         $formulaireResponsable->ajouterComposantTab();
     
         $formulaireResponsable->ajouterComposantLigne($formulaireResponsable->creerLabel('Nouveau mot de passe :'));
