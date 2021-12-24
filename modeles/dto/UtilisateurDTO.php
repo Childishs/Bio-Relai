@@ -1,13 +1,13 @@
-<?php 
+<?php
 
 /*
-UtilisateurDTO : 
+UtilisateurDTO :
     - Infos BDD
-    - Accesseurs principaux 
+    - Accesseurs principaux
 */
 
 class UtilisateurDTO {
-
+use Hydrate;
     private  $idUtilisateur;
     private  $mail;
     private  $mdp;
@@ -16,13 +16,13 @@ class UtilisateurDTO {
     private  $prenomUtilisateur;
     private  $token;
 
-    // Accesseurs 
+    // Accesseurs
 
-    public function getId() {
+    public function getIdUtilisateur() {
         return $this->idUtilisateur;
     }
 
-    public function setId(int $id) {
+    public function setIdUtilisateur(int $id) {
         $this->idUtilisateur = $id;
     }
 

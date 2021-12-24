@@ -28,7 +28,7 @@ else if(isset($_POST['submitConnex'])){
         }
     }
 }
-
+ 
 else if(isset($_POST['submitInscription'])){
     //vérification des informations remplies correctement et
     if(!empty($_POST['mdp']) && !empty($_POST['email']) && !empty($_POST['nom']) && !empty($_POST['prenom'])){

@@ -1,21 +1,21 @@
-<?php 
+<?php
 
 /*
-Utilisateur DAO : 
+Utilisateur DAO :
     - Requête SQL avec la table UTILISATEURS
     - OCCUPATION : Connexion
-    - OCCUPATION : CRUD 
+    - OCCUPATION : CRUD
 */
- 
+
 class UtilisateurDAO {
 
      /**
      * Permet de vérifier que l'utilisateur a un compte et qu'il peut donc se connecter
-     * 
-     * 
+     *
+     *
      * @param string $email
      * @param string $mdp
-     * @return UtilisateurDTO|null 
+     * @return UtilisateurDTO|null
      */
     public static function connexion(string $login, string $mdp)
     {
@@ -32,7 +32,7 @@ class UtilisateurDAO {
             // vérification du password
 
             if (password_verify($mdp, $utilisateur->getMdp())) {
-                $_SESSION['user'] = ['token' => $utilisateur->getToken(), 'nom' => $utilisateur->getNomUtilisateur(), 'prenom' => $utilisateur->getPrenomUtilisateur(), 'statut' => $utilisateur->getStatut()];
+                $_SESSION['user'] = ['idUtilisateur'=>$utilisateur->getId(),'token' => $utilisateur->getToken(), 'nom' => $utilisateur->getNomUtilisateur(), 'prenom' => $utilisateur->getPrenomUtilisateur(), 'statut' => $utilisateur->getStatut()];
                 $_SESSION['AGENT'] = $_SERVER['HTTP_USER_AGENT'];
                 $_SESSION['TOKEN'] = $utilisateur->getToken();
 
@@ -45,13 +45,13 @@ class UtilisateurDAO {
     }
 
     /**
-     * Fonction permettant de s'inscrire -> Ajout en BDD d'un utilisateur 
-     * 
+     * Fonction permettant de s'inscrire -> Ajout en BDD d'un utilisateur
+     *
      * @param UtilisateurDTO
      * @return bool -> true si ajout / false si erreur
      */
     public static function inscription(UtilisateurDTO $user) : void {
-        // Création d'un utilisateur dans db 
+        // Création d'un utilisateur dans db
         // On commence par vérifier si l'utilisateur n'est pas déjà dans la bdd
         $req = DBConnex::getInstance()->prepare("SELECT mail FROM UTILISATEURS where mail = ?");
         $req->execute(array($user->getMail()));
@@ -59,21 +59,21 @@ class UtilisateurDAO {
         if($req->rowCount() != 0) {
             $_SESSION['error'] = "Problème d'inscription!";
         }
-        // Sinon, on ajoute 
-        // On commence par hasher le mdp pcq on est des bogoss de la sécu 
+        // Sinon, on ajoute
+        // On commence par hasher le mdp pcq on est des bogoss de la sécu
         $mdp = password_hash($user->getMdp(), PASSWORD_DEFAULT);
 
-        // Création du token aléatoire 
+        // Création du token aléatoire
         $token = strval(openssl_random_pseudo_bytes(25));
         $token = hash('SHA256', $token);
 
-        // Envoie db 
+        // Envoie db
         try {
             // A terminer
             $req = DBConnex::getInstance()->prepare("INSERT INTO UTILISATEURS (mail,mdp,statut,nomUtilisateur,prenomUtilisateur,token) VALUES (?,?,?,?,?,?)");
             $req->execute(array($user->getMail(), $mdp, $user->getStatut(), $user->getNomUtilisateur(), $user->getPrenomUtilisateur(), $token));
 
-            $_SESSION['user'] = ['token' => $token, 'nom' => $user->getNomUtilisateur(), 'prenom' => $user->getPrenomUtilisateur(), 'statut' => $user->getStatut()];
+            $_SESSION['user'] = ['idUtilisateur'=>$user->getId(), 'token' => $token, 'nom' => $user->getNomUtilisateur(), 'prenom' => $user->getPrenomUtilisateur(), 'statut' => $user->getStatut()];
 
 
         } catch(Exception $e) {
@@ -83,9 +83,9 @@ class UtilisateurDAO {
 
     /**
      * Fonction permettant de récupérer tous les utilisateurs par statut
-     * 
-     * @param $statut le statut de la DB 
-     * @return UtilisateurDto[]|null Selon la reception, un tableau d'objet ou null si vide 
+     *
+     * @param $statut le statut de la DB
+     * @return UtilisateurDto[]|null Selon la reception, un tableau d'objet ou null si vide
      */
     public function getAllByStatut(string $statut) : ?array {
         $req = DBConnex::getInstance()->prepare('SELECT * FROM UTILISATEURS WHERE statut = ?');

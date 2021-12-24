@@ -52,7 +52,7 @@ nav .btnConnexion, .btnDeconnexion{
 	width: 1400px;
 	margin-left: auto;
 	margin-right: auto;
-	font-family: Helvetica; 
+	font-family: Helvetica;
 }
 
 .producteurs .titreListe {
@@ -83,18 +83,18 @@ nav .btnConnexion, .btnDeconnexion{
 }
 
 .producteurs .item .texte .titre span{
-	padding-right: 20px; 
+	padding-right: 20px;
 }
 
 .producteurs .item .texte .descriptif{
 	text-align: justify;
 	padding-top: 30px;
-	
+
 }
 
 .producteurs .item .texte .produitsProposes{
 	margin-top: 20px;
-	text-align: right;	
+	text-align: right;
 	Font-Weight: Bold;
 }
 
@@ -117,7 +117,7 @@ Formulaire de connexion
 */
 
 .formulaireConnexion , .formulaireInscription{
-	
+
 	width: 600px;
 	border: solid black 2px;
 	margin-left: auto;
@@ -160,7 +160,7 @@ Formulaire de connexion
 
 .demandeInscription{
 	display: inline-block;;
-	padding: 0px	
+	padding: 0px
 	width: 50%;
 }
 
@@ -172,7 +172,7 @@ Formulaire de connexion
 
 
 .demandeInscription li{
-	display: inline-block;	
+	display: inline-block;
 }
 
 
@@ -186,7 +186,7 @@ Formulaire de connexion
 .fermerConnexion{
 	display: inline-block;;
 	list-style-type: none;
-	width: 50%;	
+	width: 50%;
 	text-align: right;
 }
 
@@ -237,7 +237,7 @@ Formulaire de connexion
 
 .menuBioRelai li.actif {
 	background-color: #508a39;
-	color: #b08a39;	
+	color: #b08a39;
 }
 
 
@@ -250,9 +250,9 @@ Formulaire de connexion
 }
 
 .menuBioRelai li a:hover {
-	color: #000000;	
+	color: #000000;
 }
 
 
 
-/* Adhérents */ 
+/* Adhérents */
